@@ -1,0 +1,406 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 320 50% 4%;
+    --foreground: 0 0% 98%;
+    --card: 320 30% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 320 30% 6%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 284 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 284 60% 40%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 320 20% 12%;
+    --muted-foreground: 284 20% 60%;
+    --accent: 284 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 320 20% 14%;
+    --input: 320 20% 10%;
+    --ring: 284 100% 50%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #0b040d;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* VOXR exact colors */
+:root {
+  --voxr-bg: #0b040d;
+  --voxr-purple: #ab00ff;
+  --voxr-purple-light: #ddbbf1;
+  --voxr-purple-glow: rgba(171, 0, 255, 0.3);
+  --voxr-label-bg: rgba(20, 8, 24, 0.9);
+  --voxr-surface: rgba(255,255,255,0.04);
+  --voxr-border: rgba(255,255,255,0.08);
+  --editor-bg: #111014;
+  --editor-panel: #161419;
+  --editor-panel-elevated: #1b181e;
+  --editor-text: #f5f1eb;
+  --editor-muted: #91888d;
+  --editor-border: rgba(255, 255, 255, 0.09);
+  --editor-accent: #ab00ff;
+  --editor-danger: #ef6571;
+  --editor-success: #34c98a;
+  --editor-canvas-bg: #f8f6f2;
+  --editor-selection: #ab00ff;
+  --editor-grid-minor: rgba(98,83,73,.065);
+  --editor-grid-major: rgba(98,83,73,.17);
+}
+
+.spacio-editor button:focus-visible,
+.spacio-editor input:focus-visible,
+.spacio-editor select:focus-visible {
+  outline: 2px solid var(--editor-accent);
+  outline-offset: 2px;
+}
+
+/* Glass utilities - VOXR style */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(20, 6, 24, 0.85);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(171, 0, 255, 0.06);
+  border-color: rgba(171, 0, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Hero label - exact VOXR style */
+.hero-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 100px;
+  background: rgba(20, 6, 24, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+}
+
+/* Gradient border exactly like VOXR glass-label */
+.voxr-glass-label {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  border-radius: 100px;
+}
+
+.voxr-glass-label::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(200deg,
+    rgba(233, 197, 255, 0.6) 0%,
+    rgba(233, 197, 255, 0) 40%,
+    rgba(233, 197, 255, 0) 60%,
+    rgba(233, 197, 255, 0.6) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.voxr-glass-label::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: rgba(171, 0, 255, 0.08);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.voxr-glass-label > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Glass button - VOXR style */
+.voxr-glass-button {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  border-radius: 100px;
+}
+
+.voxr-glass-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0.6) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.voxr-glass-button > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Main CTA button - VOXR white pill */
+.btn-voxr {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 8px 8px 20px;
+  border-radius: 100px;
+  background: white;
+  color: black;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.btn-voxr:hover .btn-voxr-circle {
+  transform: scale(1.1);
+}
+
+.btn-voxr-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ab00ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.btn-voxr-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.3);
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-voxr:hover .btn-voxr-glow {
+  opacity: 1;
+}
+
+/* Contact us button */
+.btn-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 100px;
+  background: rgba(20, 8, 24, 0.9);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: all 0.3s ease;
+}
+
+.btn-contact:hover {
+  background: rgba(171, 0, 255, 0.1);
+  border-color: rgba(171, 0, 255, 0.3);
+}
+
+/* App buttons */
+.btn-primary {
+  background: #ab00ff;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(171, 0, 255, 0.3);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 50px rgba(171, 0, 255, 0.5);
+  transform: translateY(-1px);
+  background: #c000ff;
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-glass:hover {
+  background: rgba(171, 0, 255, 0.08);
+  border-color: rgba(171, 0, 255, 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0b040d; }
+::-webkit-scrollbar-thumb { background: rgba(171, 0, 255, 0.4); border-radius: 2px; }
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-bottom {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-label-float {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  33% { transform: translateY(-6px) translateX(2px); }
+  66% { transform: translateY(3px) translateX(-2px); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-hero-float { animation: hero-label-float 7s ease-in-out infinite; }
+
+/* VOXR gradient text - purple */
+.gradient-text {
+  background: linear-gradient(135deg, #ab00ff 0%, #e100ff 50%, #ab00ff 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* Span gradient like VOXR .span-h1-gradient */
+.span-purple {
+  background: linear-gradient(135deg, #ab00ff 0%, #e100ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Dark surface */
+.dp-surface { background: #140818; }
+.dp-black { background: #0b040d; }
+
+/* VOXR section dividers */
+.voxr-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(171, 0, 255, 0.2), transparent);
+}
+
+/* Grid background like VOXR */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(171, 0, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(171, 0, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* font aliases */
+.font-space { font-family: 'DM Sans', sans-serif; }
+.font-inter { font-family: 'DM Sans', sans-serif; }
+
+/* color aliases for app pages */
+.text-dp-blue { color: #ab00ff; }
+.bg-dp-blue { background-color: #ab00ff; }
+.border-dp-blue { border-color: #ab00ff; }
+.text-dp-violet { color: #e100ff; }
+.bg-dp-violet { background-color: #e100ff; }
+.text-dp-cyan { color: #ddbbf1; }
+.bg-dp-black { background-color: #0b040d; }
+.bg-dp-surface { background-color: #140818; }
+
+/* Blueprint3D editor shell — dark canvas chrome */
+#three-canvas canvas {
+  cursor: grab;
+}
+
+#three-canvas canvas:active {
+  cursor: grabbing;
+}
+
+.design-editor-shell,
+.design-editor-shell * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+.design-editor-shell *::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.design-editor-shell *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Scandinavian Style Living Room",
+  "style": "Scandinavian",
+  "roomWidth": 740,
+  "roomDepth": 640,
+  "roomHeight": 270,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "wallTextureScale": 0,
+  "floorTexture": "/rooms/textures/light_fine_wood.jpg",
+  "floorTextureScale": 300,
+  "floorTextureStretch": false,
+  "items": [
+    { "modelUrl": "/models/imported-products/sofa-01/Sofa_01_1k.gltf", "name": "Sofa", "type": 1, "x": 0, "z": 120, "rot": 3.14159, "widthCm": 220, "depthCm": 92, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/coffee-table-round-01/coffee_table_round_01_1k.gltf", "name": "Coffee Table", "type": 1, "x": 0, "z": -20, "rot": 0, "widthCm": 105, "depthCm": 105, "heightCm": 42 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Armchair", "type": 1, "x": -230, "z": 60, "rot": 0.5, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Media Console", "type": 1, "x": 0, "z": -260, "rot": 0, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Bookcase", "type": 1, "x": -260, "z": 20, "rot": 1.5708, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
+    { "modelUrl": "/models/imported-products/sofa-02/sofa_02_1k.gltf", "name": "Accent Sofa", "type": 1, "x": 230, "z": -60, "rot": -1.5708, "widthCm": 220, "depthCm": 92, "heightCm": 85 }
+  ]
+}

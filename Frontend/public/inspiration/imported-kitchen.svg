@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <defs>
+    <linearGradient id="room" x2="1" y2="1">
+      <stop stop-color="#221d1c"/>
+      <stop offset="1" stop-color="#0d1014"/>
+    </linearGradient>
+    <linearGradient id="wood">
+      <stop stop-color="#bf8355"/>
+      <stop offset="1" stop-color="#73462e"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="320" fill="url(#room)"/>
+  <path d="M0 270 480 224V320H0Z" fill="#372b26"/>
+  <path d="M250 85H444V224H250Z" fill="#44352d"/>
+  <path d="M262 103H310V174H262Zm59 0h48v71h-48zm59 0h48v71h-48z" fill="url(#wood)"/>
+  <path d="M235 185H454V228H235Z" fill="#dfd2bf"/>
+  <path d="M242 228H447V268H242Z" fill="url(#wood)"/>
+  <path d="M35 126H184V270H35Z" fill="#efe6d6"/>
+  <path d="M45 142H174V259H45Z" fill="#d6c7ae"/>
+  <circle cx="390" cy="45" r="25" fill="#ffd995" opacity=".22"/>
+  <text x="24" y="42" fill="#f4efe9" font-family="Arial, sans-serif" font-size="22">Detailed Kitchen</text>
+  <text x="25" y="65" fill="#baad9c" font-family="Arial, sans-serif" font-size="12">IMPORTED GLB SCENE</text>
+</svg>

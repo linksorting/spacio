@@ -1,0 +1,22 @@
+{
+  "name": "Luxury Loft Living",
+  "style": "Luxury",
+  "roomWidth": 860,
+  "roomDepth": 740,
+  "roomHeight": 280,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "wallTextureScale": 0,
+  "floorTexture": "/rooms/textures/dark_fine_wood.jpg",
+  "floorTextureScale": 300,
+  "floorTextureStretch": false,
+  "items": [
+    { "modelUrl": "/models/imported-products/3-seater-sectional-sofa/3-seater-sectional-sofa.glb", "name": "Sectional Sofa", "type": 1, "x": 0, "z": 120, "rot": 3.14159, "widthCm": 240, "depthCm": 95, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/coffee-table-round-01/coffee_table_round_01_1k.gltf", "name": "Coffee Table", "type": 1, "x": 0, "z": -25, "rot": 0, "widthCm": 105, "depthCm": 105, "heightCm": 42 },
+    { "modelUrl": "/models/imported-products/realistic-sofa-010/realistic-sofa-010.glb", "name": "Lounge Sofa L", "type": 1, "x": -220, "z": -40, "rot": 0.6, "widthCm": 235, "depthCm": 95, "heightCm": 88 },
+    { "modelUrl": "/models/imported-products/realistic-sofa-004/realistic-sofa-004.glb", "name": "Lounge Sofa R", "type": 1, "x": 220, "z": -40, "rot": -0.6, "widthCm": 220, "depthCm": 92, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Display Cabinet L", "type": 1, "x": -295, "z": 160, "rot": 1.5708, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Display Cabinet R", "type": 1, "x": 295, "z": 160, "rot": -1.5708, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Statement Chair", "type": 1, "x": 0, "z": -280, "rot": 0, "widthCm": 82, "depthCm": 88, "heightCm": 86 }
+  ]
+}

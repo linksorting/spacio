@@ -1,0 +1,22 @@
+{
+  "name": "Gothic Master Suite",
+  "style": "Gothic",
+  "roomWidth": 640,
+  "roomDepth": 580,
+  "roomHeight": 270,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "wallTextureScale": 0,
+  "floorTexture": "/rooms/textures/dark_fine_wood.jpg",
+  "floorTextureScale": 300,
+  "floorTextureStretch": false,
+  "items": [
+    { "modelUrl": "/models/imported-products/gothic-bed-01/GothicBed_01_1k.gltf", "name": "Gothic Bed", "type": 1, "x": 0, "z": 70, "rot": 0, "widthCm": 190, "depthCm": 220, "heightCm": 110 },
+    { "modelUrl": "/models/imported-products/detailed-cupboard-015/detailed-cupboard-015.glb", "name": "Nightstand L", "type": 1, "x": -165, "z": 70, "rot": 0, "widthCm": 100, "depthCm": 45, "heightCm": 180 },
+    { "modelUrl": "/models/imported-products/detailed-cupboard-043/detailed-cupboard-043.glb", "name": "Nightstand R", "type": 1, "x": 165, "z": 70, "rot": 0, "widthCm": 100, "depthCm": 45, "heightCm": 180 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Armoire", "type": 1, "x": 230, "z": -100, "rot": 1.5708, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Reading Chair", "type": 1, "x": -230, "z": -150, "rot": 0.7854, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
+    { "modelUrl": "/models/imported-products/round-wooden-table-01/round_wooden_table_01_1k.gltf", "name": "Vanity Table", "type": 1, "x": -230, "z": -70, "rot": 0, "widthCm": 120, "depthCm": 120, "heightCm": 76 },
+    { "modelUrl": "/models/imported-products/detailed-cupboard-020/detailed-cupboard-020.glb", "name": "Dresser", "type": 1, "x": 230, "z": 210, "rot": 3.14159, "widthCm": 100, "depthCm": 45, "heightCm": 180 }
+  ]
+}

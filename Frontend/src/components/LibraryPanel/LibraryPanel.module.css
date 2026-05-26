@@ -1,0 +1,51 @@
+.panel {
+  width: 380px;
+  min-width: 360px;
+  background: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-right: 0.5px solid rgba(255, 255, 255, 0.06);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 12px;
+  flex-shrink: 0;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.06);
+}
+
+.panelTitle {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: #f0f0f0;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: color 0.12s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.closeBtn:hover {
+  color: #fff;
+}
+
+.emptyState {
+  flex: 1;
+  padding: 40px 24px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.3);
+  line-height: 1.8;
+}

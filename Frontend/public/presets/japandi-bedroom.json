@@ -1,0 +1,21 @@
+{
+  "name": "Japandi Minimal Bedroom",
+  "style": "Japandi",
+  "roomWidth": 640,
+  "roomDepth": 580,
+  "roomHeight": 260,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "wallTextureScale": 0,
+  "floorTexture": "/rooms/textures/light_fine_wood.jpg",
+  "floorTextureScale": 300,
+  "floorTextureStretch": false,
+  "items": [
+    { "modelUrl": "/models/imported-products/gothic-bed-01/GothicBed_01_1k.gltf", "name": "Bed", "type": 1, "x": 0, "z": 50, "rot": 0, "widthCm": 190, "depthCm": 220, "heightCm": 110 },
+    { "modelUrl": "/models/imported-products/detailed-cupboard-015/detailed-cupboard-015.glb", "name": "Bedside Cabinet L", "type": 1, "x": -165, "z": 50, "rot": 0, "widthCm": 100, "depthCm": 45, "heightCm": 180 },
+    { "modelUrl": "/models/imported-products/detailed-cupboard-020/detailed-cupboard-020.glb", "name": "Bedside Cabinet R", "type": 1, "x": 165, "z": 50, "rot": 0, "widthCm": 100, "depthCm": 45, "heightCm": 180 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Wardrobe", "type": 1, "x": 230, "z": -100, "rot": 1.5708, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
+    { "modelUrl": "/models/imported-products/coffee-table-round-01/coffee_table_round_01_1k.gltf", "name": "Side Table", "type": 1, "x": 0, "z": -120, "rot": 0, "widthCm": 105, "depthCm": 105, "heightCm": 42 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Lounge Chair", "type": 1, "x": -220, "z": -150, "rot": 0.7854, "widthCm": 82, "depthCm": 88, "heightCm": 86 }
+  ]
+}

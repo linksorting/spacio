@@ -1,0 +1,12 @@
+{
+  "name": "Detailed Kitchen Scene",
+  "style": "Imported",
+  "roomWidth": 620,
+  "roomDepth": 500,
+  "roomHeight": 270,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "floorTexture": "/rooms/textures/light_fine_wood.jpg",
+  "floorTextureScale": 300,
+  "items": []
+}

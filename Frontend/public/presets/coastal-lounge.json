@@ -1,0 +1,22 @@
+{
+  "name": "Coastal Lounge",
+  "style": "Coastal",
+  "roomWidth": 780,
+  "roomDepth": 680,
+  "roomHeight": 270,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "wallTextureScale": 0,
+  "floorTexture": "/rooms/textures/light_fine_wood.jpg",
+  "floorTextureScale": 300,
+  "floorTextureStretch": false,
+  "items": [
+    { "modelUrl": "/models/imported-products/realistic-sofa-005/realistic-sofa-005.glb", "name": "Linen Sofa", "type": 1, "x": 0, "z": 110, "rot": 3.14159, "widthCm": 220, "depthCm": 92, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/round-wooden-table-01/round_wooden_table_01_1k.gltf", "name": "Coffee Table", "type": 1, "x": 0, "z": -20, "rot": 0, "widthCm": 120, "depthCm": 120, "heightCm": 76 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Accent Chair L", "type": 1, "x": -230, "z": 60, "rot": 0.7854, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Accent Chair R", "type": 1, "x": 230, "z": 60, "rot": -0.7854, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Media Console", "type": 1, "x": 0, "z": -270, "rot": 0, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
+    { "modelUrl": "/models/imported-products/sofa-02/sofa_02_1k.gltf", "name": "Reading Sofa", "type": 1, "x": 220, "z": -80, "rot": -1.5708, "widthCm": 220, "depthCm": 92, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/coffee-table-round-01/coffee_table_round_01_1k.gltf", "name": "Side Table", "type": 1, "x": 240, "z": 90, "rot": 0, "widthCm": 105, "depthCm": 105, "heightCm": 42 }
+  ]
+}

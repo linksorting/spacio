@@ -1,0 +1,92 @@
+.root {
+  position: absolute;
+  inset: 0;
+  background: #171719;
+}
+
+.root canvas {
+  cursor: grab;
+}
+
+.root canvas:active {
+  cursor: grabbing;
+}
+
+.caption {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  background: rgba(22, 22, 24, 0.84);
+  backdrop-filter: blur(10px);
+  color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.caption div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.eyebrow {
+  color: #ab9fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.caption strong {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.hint {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11px;
+}
+
+.treatment {
+  color: rgba(255, 225, 190, 0.8);
+  font-size: 11px;
+}
+
+.returnBtn {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: 1px solid rgba(137, 121, 255, 0.7);
+  border-radius: 7px;
+  background: #6554ee;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.returnBtn:hover {
+  background: #7161f2;
+}
+
+.loading,
+.error {
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgba(24, 24, 26, 0.9);
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 12px;
+}
+
+.error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 340px;
+  text-align: center;
+}

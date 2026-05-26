@@ -1,0 +1,22 @@
+{
+  "name": "Executive Studio",
+  "style": "Executive",
+  "roomWidth": 620,
+  "roomDepth": 560,
+  "roomHeight": 270,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "wallTextureScale": 0,
+  "floorTexture": "/rooms/textures/light_fine_wood.jpg",
+  "floorTextureScale": 300,
+  "floorTextureStretch": false,
+  "items": [
+    { "modelUrl": "/models/imported-products/round-wooden-table-01/round_wooden_table_01_1k.gltf", "name": "Executive Desk", "type": 1, "x": 0, "z": -180, "rot": 0, "widthCm": 120, "depthCm": 120, "heightCm": 76 },
+    { "modelUrl": "/models/imported-products/chair-032/chair-032.glb", "name": "Desk Chair", "type": 1, "x": 0, "z": -100, "rot": 3.14159, "widthCm": 65, "depthCm": 70, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/detailed-cupboard-015/detailed-cupboard-015.glb", "name": "Filing Cabinet L", "type": 1, "x": -220, "z": -60, "rot": 1.5708, "widthCm": 100, "depthCm": 45, "heightCm": 180 },
+    { "modelUrl": "/models/imported-products/detailed-cupboard-020/detailed-cupboard-020.glb", "name": "Filing Cabinet R", "type": 1, "x": -220, "z": 60, "rot": 1.5708, "widthCm": 100, "depthCm": 45, "heightCm": 180 },
+    { "modelUrl": "/models/imported-products/realistic-sofa-004/realistic-sofa-004.glb", "name": "Meeting Sofa", "type": 1, "x": 0, "z": 150, "rot": 0, "widthCm": 220, "depthCm": 92, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/coffee-table-round-01/coffee_table_round_01_1k.gltf", "name": "Meeting Table", "type": 1, "x": 0, "z": 60, "rot": 0, "widthCm": 105, "depthCm": 105, "heightCm": 42 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Bookcase", "type": 1, "x": 220, "z": -120, "rot": -1.5708, "widthCm": 115, "depthCm": 55, "heightCm": 190 }
+  ]
+}

@@ -1,0 +1,399 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "TurboSquid Stem Converter v1.0.0"
+  },
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 6055,
+      "type": "VEC3",
+      "max": [
+        3.17448353767395,
+        5.401146411895752,
+        1.4124394655227661
+      ],
+      "min": [
+        -4.038262367248535,
+        -5.671538829803467,
+        -1.4124395847320557
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 6055,
+      "type": "VEC3",
+      "max": [
+        0.9997327923774719,
+        0.9993435740470886,
+        0.9999289512634277
+      ],
+      "min": [
+        -0.9997711181640625,
+        -0.9960871934890747,
+        -0.9999233484268188
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 6055,
+      "type": "VEC2",
+      "max": [
+        0.6274704337120056,
+        0.17589449882507324
+      ],
+      "min": [
+        0.007366749458014965,
+        0.0022735595703125
+      ]
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 0,
+      "componentType": 5123,
+      "count": 29616,
+      "type": "SCALAR",
+      "max": [
+        6054.0
+      ],
+      "min": [
+        0.0
+      ]
+    },
+    {
+      "bufferView": 4,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 21102,
+      "type": "VEC3",
+      "max": [
+        7.242475986480713,
+        12.134557723999023,
+        7.878566265106201
+      ],
+      "min": [
+        -7.242476463317871,
+        -12.134557723999023,
+        -7.878565311431885
+      ]
+    },
+    {
+      "bufferView": 5,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 21102,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 6,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 21102,
+      "type": "VEC2",
+      "max": [
+        0.9887555241584778,
+        0.9922629594802856
+      ],
+      "min": [
+        0.011264337226748466,
+        0.06467771530151367
+      ]
+    },
+    {
+      "bufferView": 7,
+      "byteOffset": 0,
+      "componentType": 5123,
+      "count": 103170,
+      "type": "SCALAR",
+      "max": [
+        21101.0
+      ],
+      "min": [
+        0.0
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 1134596,
+      "uri": "Boxed_Toaster_Device_VRay_StemCell.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 72660,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 72660,
+      "byteLength": 72660,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 145320,
+      "byteLength": 48440,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 193760,
+      "byteLength": 59232,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 252992,
+      "byteLength": 253224,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 506216,
+      "byteLength": 253224,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 759440,
+      "byteLength": 168816,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 928256,
+      "byteLength": 206340,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "Toaster_Boxedl",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      },
+      "alphaMode": "OPAQUE",
+      "occlusionTexture": {
+        "index": 1
+      },
+      "normalTexture": {
+        "index": 2
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Toaster_Boxed_Cable_004",
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 0,
+          "indices": 3,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "Toaster_Boxed_004",
+      "primitives": [
+        {
+          "mode": 4,
+          "material": 0,
+          "indices": 7,
+          "attributes": {
+            "POSITION": 4,
+            "NORMAL": 5,
+            "TEXCOORD_0": 6
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ]
+    },
+    {
+      "name": "Boxed_Toaster_Device_Group_$_Translation",
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        7.857717037200928,
+        -0.0,
+        1.0
+      ],
+      "children": [
+        2
+      ]
+    },
+    {
+      "name": "Boxed_Toaster_Device_Group_$_PreRotation",
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -4.371138828673793e-08,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        -4.371138828673793e-08,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "children": [
+        3
+      ]
+    },
+    {
+      "name": "Boxed_Toaster_Device_Group",
+      "children": [
+        4,
+        6
+      ]
+    },
+    {
+      "name": "node",
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        5.439724445343018,
+        9.11767578125,
+        -6.435644626617432,
+        1.0
+      ],
+      "children": [
+        5
+      ]
+    },
+    {
+      "name": "Toaster_Boxed_Cable_004",
+      "mesh": 0
+    },
+    {
+      "name": "node_0",
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -1.3717323541641235,
+        -2.384263753890991,
+        -4.76837158203125e-07,
+        1.0
+      ],
+      "children": [
+        7
+      ]
+    },
+    {
+      "name": "Toaster_Boxed_004",
+      "mesh": 1
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0,
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/baseColor.jpg"
+    },
+    {
+      "uri": "textures/occlusionRoughnessMetallic.jpg"
+    },
+    {
+      "uri": "textures/normal.png"
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    }
+  ]
+}
