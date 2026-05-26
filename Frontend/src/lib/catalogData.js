@@ -286,17 +286,10 @@ export const INSPIRATION_CATEGORIES = [
     rooms: [
       {
         id: 'imported-kitchen-assets',
-        name: 'Detailed Kitchen Scene',
+        name: 'Editable Modern Kitchen',
         thumbnail: '/inspiration/imported-kitchen.svg',
-        style: 'Imported 3D',
-        sceneModelUrl: '/models/imported-scenes/kitchen-assets.glb',
-        roomWidthCm: 620,
-        roomDepthCm: 500,
-        colorTreatment: 'Warm palette applied - source GLB has no textures',
-        materialPalette: {
-          null: '#ead8bd',
-          None: '#9f6748',
-        },
+        style: 'Modern',
+        presetId: 'modern-kitchen',
       },
       {
         id: 'family-gathering',

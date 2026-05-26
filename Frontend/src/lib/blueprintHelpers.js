@@ -92,9 +92,11 @@ export function getFloorSpecFromBlueprint(bp3d) {
   const size = fp.getSize?.();
   const center = fp.getCenter?.();
   if (size && center) {
+    const width = size.x ?? size.width ?? 0;
+    const depth = size.z ?? size.depth ?? 0;
     return {
-      width: size.x ?? size.width ?? 400,
-      depth: size.z ?? size.depth ?? 400,
+      width: width > 0 ? width : 400,
+      depth: depth > 0 ? depth : 400,
       centerX: center.x ?? 0,
       centerZ: center.z ?? 0,
     };
@@ -316,7 +318,7 @@ export function getBlueprintCameraSetup(floorSpec, shell = null) {
 
   const cx = (floorSpec?.centerX ?? 0) / 100;
   const cz = (floorSpec?.centerZ ?? 0) / 100;
-  const depth = (floorSpec?.depth ?? floorSpec?.width ?? 400) / 100;
+  const depth = Math.max(floorSpec?.depth ?? floorSpec?.width ?? 400, 400) / 100;
   const target = { x: cx, y: 1.5, z: cz };
   const distance = depth * 1.5;
   return {

@@ -1,9 +1,16 @@
-/* eslint-disable react/no-unknown-property */
 import { useGLTF } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import { useMemo } from 'react';
+import { Box3, Vector3 } from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { getModelFormat } from '@/lib/modelFormats';
+
+const fittedTemplateCache = new Map();
+
+function cacheKey(url, materialPalette, widthCm, depthCm, heightCm) {
+  const paletteKey = materialPalette ? JSON.stringify(materialPalette) : '';
+  return `${url}|${widthCm}|${depthCm}|${heightCm}|${paletteKey}`;
+}
 
 function applyMaterialPalette(root, materialPalette) {
   if (!root || !materialPalette) return root;
@@ -29,42 +36,89 @@ function applyMaterialPalette(root, materialPalette) {
   return root;
 }
 
-function GltfModel({ url, materialPalette }) {
-  const gltf = useGLTF(url);
-  const scene = useMemo(
-    () => applyMaterialPalette(gltf.scene.clone(true), materialPalette),
-    [gltf.scene, materialPalette],
-  );
-  return <primitive object={scene} />;
+function buildFittedTemplate(root, materialPalette, widthCm, depthCm, heightCm) {
+  const scene = applyMaterialPalette(root, materialPalette);
+  scene.traverse((child) => {
+    if (!child.isMesh) return;
+    child.castShadow = false;
+    child.receiveShadow = false;
+  });
+
+  if (![widthCm, depthCm, heightCm].every((value) => Number.isFinite(value) && value > 0)) {
+    return { scene, scale: 1, position: [0, 0, 0] };
+  }
+
+  const box = new Box3().setFromObject(scene);
+  const size = new Vector3();
+  const center = new Vector3();
+  box.getSize(size);
+  box.getCenter(center);
+
+  const sourceMax = Math.max(size.x, size.y, size.z);
+  const targetMax = Math.max(widthCm, depthCm, heightCm) / 100;
+  const scale = sourceMax > 0 ? targetMax / sourceMax : 1;
+
+  return {
+    scene,
+    scale,
+    position: [-center.x * scale, -box.min.y * scale, -center.z * scale],
+  };
 }
 
-function ObjModel({ url }) {
+function getFittedInstance(url, sourceRoot, materialPalette, widthCm, depthCm, heightCm) {
+  const key = cacheKey(url, materialPalette, widthCm, depthCm, heightCm);
+  if (!fittedTemplateCache.has(key)) {
+    fittedTemplateCache.set(
+      key,
+      buildFittedTemplate(sourceRoot, materialPalette, widthCm, depthCm, heightCm),
+    );
+  }
+
+  const template = fittedTemplateCache.get(key);
+  return {
+    scene: template.scene.clone(true),
+    scale: template.scale,
+    position: template.position,
+  };
+}
+
+function GltfModel({ url, materialPalette, widthCm, depthCm, heightCm }) {
+  const gltf = useGLTF(url);
+  const fitted = useMemo(
+    () => getFittedInstance(url, gltf.scene, materialPalette, widthCm, depthCm, heightCm),
+    [url, gltf.scene, materialPalette, widthCm, depthCm, heightCm],
+  );
+  return <primitive object={fitted.scene} scale={fitted.scale} position={fitted.position} />;
+}
+
+function ObjModel({ url, widthCm, depthCm, heightCm }) {
   const object = useLoader(OBJLoader, url);
-  const scene = useMemo(() => {
-    const clone = object.clone(true);
-    clone.traverse((child) => {
-      if (!child.isMesh) return;
-      child.castShadow = true;
-      child.receiveShadow = true;
-      if (Array.isArray(child.material)) {
-        child.material = child.material.map((material) => material?.clone?.() ?? material);
-      } else if (child.material?.clone) {
-        child.material = child.material.clone();
-      }
-    });
-    return clone;
-  }, [object]);
-  return <primitive object={scene} />;
+  const fitted = useMemo(
+    () => getFittedInstance(url, object, null, widthCm, depthCm, heightCm),
+    [url, object, widthCm, depthCm, heightCm],
+  );
+  return <primitive object={fitted.scene} scale={fitted.scale} position={fitted.position} />;
 }
 
 /**
  * Loads a scene/product model from GLTF, GLB, OBJ, or BJ (OBJ alias).
- * @param {{ url: string, materialPalette?: Record<string, string> }} props
  */
-export default function LoadedModel({ url, materialPalette = null }) {
+export default function LoadedModel({ url, materialPalette = null, widthCm, depthCm, heightCm }) {
   const format = getModelFormat(url);
-  if (format === 'gltf') return <GltfModel url={url} materialPalette={materialPalette} />;
-  if (format === 'obj') return <ObjModel url={url} />;
+  if (format === 'gltf') {
+    return (
+      <GltfModel
+        url={url}
+        materialPalette={materialPalette}
+        widthCm={widthCm}
+        depthCm={depthCm}
+        heightCm={heightCm}
+      />
+    );
+  }
+  if (format === 'obj') {
+    return <ObjModel url={url} widthCm={widthCm} depthCm={depthCm} heightCm={heightCm} />;
+  }
   return null;
 }
 

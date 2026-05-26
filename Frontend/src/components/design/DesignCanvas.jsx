@@ -31,6 +31,7 @@ import {
   readPendingBackgroundPlan,
   saveBackgroundPlan,
 } from '@/lib/projectStart';
+import { preloadModel } from './LoadedModel';
 import styles from './DesignCanvas.module.css';
 
 const ImportedSceneViewer = lazy(() => import('./ImportedSceneViewer'));
@@ -94,6 +95,7 @@ export default function DesignCanvas({ projectId, projectName, onBack, startConf
   const selectedRef = useRef(null);
   const snapOnRef = useRef(true);
   const drawFootprintsRef = useRef(() => {});
+  const footprintRafRef = useRef(null);
   const modeRef = useRef('floorplan');
   const roomPreviewRef = useRef(null);
   const setEditorToolRef = useRef(() => {});
@@ -278,6 +280,8 @@ export default function DesignCanvas({ projectId, projectName, onBack, startConf
 
   // ── Draw footprint overlay on the 2D canvas ─────────────────────────
   const drawFootprints = useCallback(() => {
+    if (modeRef.current !== 'floorplan') return;
+
     const bp3d = bp3dRef.current;
     const canvas = overlayRef.current;
     if (!bp3d || !canvas) return;
@@ -398,7 +402,22 @@ export default function DesignCanvas({ projectId, projectName, onBack, startConf
     }
   }, []);
 
-  drawFootprintsRef.current = drawFootprints;
+  const scheduleFootprintDraw = useCallback(() => {
+    if (modeRef.current !== 'floorplan') return;
+    if (footprintRafRef.current != null) return;
+    footprintRafRef.current = window.requestAnimationFrame(() => {
+      footprintRafRef.current = null;
+      drawFootprints();
+    });
+  }, [drawFootprints]);
+
+  useEffect(() => () => {
+    if (footprintRafRef.current != null) {
+      window.cancelAnimationFrame(footprintRafRef.current);
+    }
+  }, []);
+
+  drawFootprintsRef.current = scheduleFootprintDraw;
 
   const scheduleShellSync = useCallback(() => {
     if (shellSyncTimerRef.current) return;
@@ -486,11 +505,15 @@ export default function DesignCanvas({ projectId, projectName, onBack, startConf
     blueprint3d.model.scene.itemLoadedCallbacks.add(() => {
       drawFootprintsRef.current();
       blueprint3d.three.needsUpdate?.();
-      setRevision((current) => current + 1);
+      if (USE_LEGACY_JS_RENDERER) {
+        setRevision((current) => current + 1);
+      }
     });
     blueprint3d.model.scene.itemRemovedCallbacks.add(() => {
       drawFootprintsRef.current();
-      setRevision((current) => current + 1);
+      if (USE_LEGACY_JS_RENDERER) {
+        setRevision((current) => current + 1);
+      }
     });
     blueprint3d.model.floorplan.fireOnRedraw(() => {
       drawFootprintsRef.current();
@@ -800,6 +823,8 @@ export default function DesignCanvas({ projectId, projectName, onBack, startConf
         return;
       }
 
+      preloadModel(modelUrl);
+
       const placement = dropPlacement ?? getCatalogPlacementPosition(
         bp3d.model.floorplan,
         gltfPlacedItemsRef.current.length,
@@ -1082,7 +1107,13 @@ export default function DesignCanvas({ projectId, projectName, onBack, startConf
     setActiveNav((prev) => (prev === id ? null : id));
   };
 
+  const preloadCatalogModel = (item) => {
+    const modelUrl = resolveCatalogModelUrl(item.model ?? item.modelUrl, item.previewModelUrl);
+    if (modelUrl) preloadModel(modelUrl);
+  };
+
   const handleAddCatalogItem = (item) => {
+    preloadCatalogModel(item);
     addItem({
       name: item.name,
       model: item.modelUrl,
@@ -1096,6 +1127,7 @@ export default function DesignCanvas({ projectId, projectName, onBack, startConf
   };
 
   const handleDragItemStart = (event, item) => {
+    preloadCatalogModel(item);
     event.dataTransfer.effectAllowed = 'copy';
     event.dataTransfer.setData(CATALOG_DRAG_TYPE, JSON.stringify({
       name: item.name,

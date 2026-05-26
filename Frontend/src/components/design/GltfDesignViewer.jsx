@@ -3,6 +3,7 @@ import {
   Component,
   Suspense,
   forwardRef,
+  memo,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -11,7 +12,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Bounds, Center, Html, useProgress } from '@react-three/drei';
+import { Bounds, Center } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
 import {
   ACESFilmicToneMapping,
@@ -24,7 +25,6 @@ import LoadedModel from './LoadedModel';
 import BlueprintRoomShell from './BlueprintRoomShell';
 import BlueprintCameraControls from './BlueprintCameraControls.jsx';
 import { getBlueprintCameraSetup } from '@/lib/blueprintHelpers';
-import { getModelSceneScale } from '@/lib/resolveCatalogModelUrl';
 import { SUPPORTED_MODEL_LABEL } from '@/lib/modelFormats';
 import styles from './ImportedSceneViewer.module.css';
 
@@ -50,12 +50,14 @@ function DropProjectionBridge({ onMount }) {
   return null;
 }
 
+const DRAG_START_PX = 4;
+
 function SceneLoader() {
-  const { progress } = useProgress();
   return (
-    <Html center>
-      <div className={styles.loading}>Loading 3D scene {Math.round(progress)}%</div>
-    </Html>
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 0]}>
+      <planeGeometry args={[2, 0.35]} />
+      <meshBasicMaterial color="#2d2926" transparent opacity={0.85} />
+    </mesh>
   );
 }
 
@@ -69,12 +71,13 @@ function OptionalSceneRoom({ room }) {
   );
 }
 
-function PlacedGltfItem({ item, selected, onSelect, onMove, onDragChange }) {
+const PlacedGltfItem = memo(function PlacedGltfItem({ item, selected, onSelect, onMove, onDragChange }) {
   const groupRef = useRef(null);
   const draggingRef = useRef(false);
+  const pointerIdRef = useRef(null);
+  const dragStartRef = useRef({ x: 0, y: 0 });
   const dragOffsetRef = useRef({ x: 0, z: 0 });
   const { camera, gl, controls } = useThree();
-  const scale = getModelSceneScale(item.modelUrl);
   const widthM = (item.widthCm ?? 100) / 100;
   const depthM = (item.depthCm ?? 100) / 100;
   const heightM = Math.max(0.08, (item.heightCm ?? 100) / 100);
@@ -96,7 +99,8 @@ function PlacedGltfItem({ item, selected, onSelect, onMove, onDragChange }) {
     return hit;
   }, [camera, gl.domElement]);
 
-  const finishDrag = useCallback((clientX, clientY, pointerId) => {
+  const finishDrag = useCallback((pointerId) => {
+    pointerIdRef.current = null;
     if (!draggingRef.current) return;
     draggingRef.current = false;
     if (controls) controls.enabled = true;
@@ -114,28 +118,54 @@ function PlacedGltfItem({ item, selected, onSelect, onMove, onDragChange }) {
     }
   }, [controls, gl.domElement, item.id, onDragChange, onMove]);
 
+  useEffect(() => {
+    const releaseOrbit = () => {
+      if (draggingRef.current || pointerIdRef.current != null) {
+        finishDrag(pointerIdRef.current);
+      }
+    };
+    window.addEventListener('pointerup', releaseOrbit);
+    window.addEventListener('blur', releaseOrbit);
+    return () => {
+      window.removeEventListener('pointerup', releaseOrbit);
+      window.removeEventListener('blur', releaseOrbit);
+    };
+  }, [finishDrag]);
+
   const handlePointerDown = (event) => {
+    if (event.button !== 0) return;
     event.stopPropagation();
     onSelect?.(item);
-    if (event.button !== 0) return;
 
-    draggingRef.current = true;
-    if (controls) controls.enabled = false;
-    onDragChange?.(true);
-    gl.domElement.setPointerCapture(event.pointerId);
-
-    const hit = projectPointerToFloor(event.clientX, event.clientY);
-    if (hit && groupRef.current) {
-      dragOffsetRef.current = {
-        x: groupRef.current.position.x - hit.x,
-        z: groupRef.current.position.z - hit.z,
-      };
-    }
+    pointerIdRef.current = event.pointerId;
+    dragStartRef.current = { x: event.clientX, y: event.clientY };
   };
 
   const handlePointerMove = (event) => {
-    if (!draggingRef.current || !groupRef.current) return;
+    if (pointerIdRef.current == null || pointerIdRef.current !== event.pointerId) return;
+
+    if (!draggingRef.current) {
+      const dx = event.clientX - dragStartRef.current.x;
+      const dy = event.clientY - dragStartRef.current.y;
+      if ((dx * dx) + (dy * dy) < DRAG_START_PX * DRAG_START_PX) return;
+
+      draggingRef.current = true;
+      if (controls) controls.enabled = false;
+      onDragChange?.(true);
+      event.stopPropagation();
+      gl.domElement.setPointerCapture(event.pointerId);
+
+      const hit = projectPointerToFloor(event.clientX, event.clientY);
+      if (hit && groupRef.current) {
+        dragOffsetRef.current = {
+          x: groupRef.current.position.x - hit.x,
+          z: groupRef.current.position.z - hit.z,
+        };
+      }
+    }
+
     event.stopPropagation();
+    if (!groupRef.current) return;
     const hit = projectPointerToFloor(event.clientX, event.clientY);
     if (!hit) return;
     groupRef.current.position.set(
@@ -146,12 +176,13 @@ function PlacedGltfItem({ item, selected, onSelect, onMove, onDragChange }) {
   };
 
   const handlePointerUp = (event) => {
+    if (pointerIdRef.current !== event.pointerId) return;
     event.stopPropagation();
-    finishDrag(event.clientX, event.clientY, event.pointerId);
+    finishDrag(event.pointerId);
   };
 
   const handlePointerCancel = (event) => {
-    finishDrag(event.clientX, event.clientY, event.pointerId);
+    finishDrag(event.pointerId);
   };
 
   return (
@@ -172,12 +203,15 @@ function PlacedGltfItem({ item, selected, onSelect, onMove, onDragChange }) {
           <meshBasicMaterial color="#818cf8" transparent opacity={0.85} depthWrite={false} />
         </mesh>
       ) : null}
-      <group scale={[scale, scale, scale]}>
-        <LoadedModel url={item.modelUrl} />
-      </group>
+      <LoadedModel
+        url={item.modelUrl}
+        widthCm={item.widthCm}
+        depthCm={item.depthCm}
+        heightCm={item.heightCm}
+      />
     </group>
   );
-}
+});
 
 class SceneErrorBoundary extends Component {
   constructor(props) {
@@ -269,7 +303,8 @@ const GltfDesignViewer = forwardRef(function GltfDesignViewer({
       <SceneErrorBoundary>
         <Canvas
           camera={initialCamera}
-          dpr={[1, 1.5]}
+          dpr={[1, 1.25]}
+          frameloop="demand"
           onPointerMissed={() => onSelectItem?.(null)}
           gl={{
             antialias: true,
@@ -278,15 +313,23 @@ const GltfDesignViewer = forwardRef(function GltfDesignViewer({
             toneMapping: ACESFilmicToneMapping,
             toneMappingExposure: 1.05,
           }}
-          shadows
         >
           <DropProjectionBridge onMount={setProjectDrop} />
           <color attach="background" args={['#201c19']} />
-          <ambientLight intensity={0.7} />
-          <hemisphereLight args={['#fff3df', '#2d2926', 1.15]} />
-          <directionalLight position={[8, 12, 6]} intensity={2.25} color="#ffe7ca" castShadow />
-          <directionalLight position={[-8, 5, -4]} intensity={0.65} color="#dce9ff" />
+          <ambientLight intensity={0.85} />
+          <hemisphereLight args={['#fff3df', '#2d2926', 0.95]} />
+          <directionalLight position={[8, 12, 6]} intensity={2.1} color="#ffe7ca" />
+          <directionalLight position={[-8, 5, -4]} intensity={0.55} color="#dce9ff" />
           <Suspense fallback={<SceneLoader />}>
+            {!room?.sceneModelUrl && !roomShell ? (
+              <>
+                <mesh rotation={[-Math.PI / 2, 0, 0]}>
+                  <planeGeometry args={[10, 10]} />
+                  <meshStandardMaterial color="#3b342f" roughness={0.94} metalness={0.02} />
+                </mesh>
+                <gridHelper args={[10, 20, '#665d55', '#514942']} position={[0, 0.002, 0]} />
+              </>
+            ) : null}
             {!room?.sceneModelUrl && roomShell ? (
               <BlueprintRoomShell
                 shell={roomShell}
@@ -328,7 +371,7 @@ const GltfDesignViewer = forwardRef(function GltfDesignViewer({
             <span className={styles.eyebrow}>GLTF renderer</span>
             <strong>{title}</strong>
             <span className={styles.hint}>
-              Click furniture to select, then drag to move. Drag empty space to orbit.
+              Left-drag empty space to orbit. Middle/right-drag or scroll wheel to pan and zoom.
             </span>
           </div>
           {onClose ? (

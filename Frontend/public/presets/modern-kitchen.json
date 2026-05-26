@@ -1,0 +1,32 @@
+{
+  "name": "Editable Modern Kitchen",
+  "style": "Modern",
+  "roomWidth": 620,
+  "roomDepth": 500,
+  "roomHeight": 270,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "wallTextureScale": 0,
+  "floorTexture": "/rooms/textures/marbletiles.jpg",
+  "floorTextureScale": 300,
+  "floorTextureStretch": false,
+  "lighting": {
+    "ambientIntensity": 0.4,
+    "keyIntensity": 1.2,
+    "mood": "clean"
+  },
+  "items": [
+    { "modelUrl": "/models/kenney/kitchenCabinet.glb", "name": "Base Cabinet 1", "type": 1, "x": -205, "z": 190, "rot": 3.14159, "widthCm": 60, "depthCm": 60, "heightCm": 92 },
+    { "modelUrl": "/models/kenney/kitchenCabinetDrawer.glb", "name": "Drawer Cabinet", "type": 1, "x": -135, "z": 190, "rot": 3.14159, "widthCm": 60, "depthCm": 60, "heightCm": 92 },
+    { "modelUrl": "/models/kenney/kitchenSink.glb", "name": "Sink Cabinet", "type": 1, "x": -65, "z": 190, "rot": 3.14159, "widthCm": 60, "depthCm": 60, "heightCm": 92 },
+    { "modelUrl": "/models/kenney/kitchenStoveElectric.glb", "name": "Cooktop", "type": 1, "x": 5, "z": 190, "rot": 3.14159, "widthCm": 60, "depthCm": 60, "heightCm": 92 },
+    { "modelUrl": "/models/kenney/kitchenCabinet.glb", "name": "Base Cabinet 2", "type": 1, "x": 75, "z": 190, "rot": 3.14159, "widthCm": 60, "depthCm": 60, "heightCm": 92 },
+    { "modelUrl": "/models/kenney/kitchenFridgeLarge.glb", "name": "Fridge", "type": 1, "x": 215, "z": 175, "rot": 3.14159, "widthCm": 75, "depthCm": 70, "heightCm": 195 },
+    { "modelUrl": "/models/kenney/kitchenCabinetUpper.glb", "name": "Upper Cabinet 1", "type": 1, "x": -190, "z": 210, "rot": 3.14159, "widthCm": 60, "depthCm": 35, "heightCm": 80 },
+    { "modelUrl": "/models/kenney/kitchenCabinetUpperDouble.glb", "name": "Upper Cabinet 2", "type": 1, "x": -115, "z": 210, "rot": 3.14159, "widthCm": 90, "depthCm": 35, "heightCm": 80 },
+    { "modelUrl": "/models/kenney/kitchenBar.glb", "name": "Kitchen Island", "type": 1, "x": 0, "z": 20, "rot": 0, "widthCm": 180, "depthCm": 80, "heightCm": 95 },
+    { "modelUrl": "/models/kenney/stoolBar.glb", "name": "Bar Stool 1", "type": 1, "x": -55, "z": -65, "rot": 0, "widthCm": 42, "depthCm": 42, "heightCm": 75 },
+    { "modelUrl": "/models/kenney/stoolBar.glb", "name": "Bar Stool 2", "type": 1, "x": 25, "z": -65, "rot": 0, "widthCm": 42, "depthCm": 42, "heightCm": 75 },
+    { "modelUrl": "/models/kenney/pottedPlant.glb", "name": "Plant", "type": 1, "x": 245, "z": -175, "rot": 0, "widthCm": 42, "depthCm": 42, "heightCm": 75 }
+  ]
+}
