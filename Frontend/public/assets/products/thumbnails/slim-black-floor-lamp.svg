@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-label="Slim Black Floor Lamp">
+  
+  <defs>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity="0.24"/>
+    </filter>
+    <linearGradient id="studioBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbfbfa"/>
+      <stop offset="100%" stop-color="#e8e6e1"/>
+    </linearGradient>
+    <radialGradient id="floorFade" cx="50%" cy="60%" r="52%">
+      <stop offset="0%" stop-color="#d4d0c8" stop-opacity="0.58"/>
+      <stop offset="100%" stop-color="#d4d0c8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="320" fill="url(#studioBg)"/>
+  <ellipse cx="256" cy="255" rx="172" ry="38" fill="url(#floorFade)"/>
+  
+        <g filter="url(#softShadow)">
+          <path d="M256 71 V238" stroke="#d7b46a" stroke-width="10" stroke-linecap="round"/>
+          <ellipse cx="256" cy="247" rx="62" ry="18" fill="#d7b46a"/>
+          <path d="M207 103 C220 68 292 68 305 103 L287 155 H225 Z" fill="#f4efe6"/>
+          <ellipse cx="256" cy="155" rx="34" ry="10" fill="#202020" opacity="0.5"/>
+        </g>
+</svg>

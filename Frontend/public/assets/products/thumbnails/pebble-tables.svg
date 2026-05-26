@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-label="Pebble Nesting Tables">
+  
+  <defs>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity="0.24"/>
+    </filter>
+    <linearGradient id="studioBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbfbfa"/>
+      <stop offset="100%" stop-color="#e8e6e1"/>
+    </linearGradient>
+    <radialGradient id="floorFade" cx="50%" cy="60%" r="52%">
+      <stop offset="0%" stop-color="#d4d0c8" stop-opacity="0.58"/>
+      <stop offset="100%" stop-color="#d4d0c8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="320" fill="url(#studioBg)"/>
+  <ellipse cx="256" cy="255" rx="172" ry="38" fill="url(#floorFade)"/>
+  
+        <g filter="url(#softShadow)">
+          <ellipse cx="256" cy="142" rx="118" ry="42" fill="#c99b67"/>
+          <ellipse cx="256" cy="137" rx="108" ry="32" fill="#8b623f" opacity="0.72"/>
+          <path d="M202 174 L184 260 M310 174 L330 260" stroke="#4d3322" stroke-width="12" stroke-linecap="round"/>
+          <path d="M220 216 H294" stroke="#4d3322" stroke-width="8" stroke-linecap="round" opacity="0.65"/>
+        </g>
+</svg>

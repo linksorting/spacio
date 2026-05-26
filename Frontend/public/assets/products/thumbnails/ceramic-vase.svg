@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-label="Ceramic Vase">
+  
+  <defs>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity="0.24"/>
+    </filter>
+    <linearGradient id="studioBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbfbfa"/>
+      <stop offset="100%" stop-color="#e8e6e1"/>
+    </linearGradient>
+    <radialGradient id="floorFade" cx="50%" cy="60%" r="52%">
+      <stop offset="0%" stop-color="#d4d0c8" stop-opacity="0.58"/>
+      <stop offset="100%" stop-color="#d4d0c8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="320" fill="url(#studioBg)"/>
+  <ellipse cx="256" cy="255" rx="172" ry="38" fill="url(#floorFade)"/>
+  
+        <g filter="url(#softShadow)">
+          <path d="M225 113 C225 90 287 90 287 113 L274 229 C272 247 240 247 238 229 Z" fill="#f2eee7"/>
+          <path d="M231 122 C246 133 266 133 281 122" stroke="#9d9a8f" stroke-width="8" stroke-linecap="round"/>
+          <ellipse cx="256" cy="235" rx="45" ry="14" fill="#423b35" opacity="0.72"/>
+        </g>
+</svg>

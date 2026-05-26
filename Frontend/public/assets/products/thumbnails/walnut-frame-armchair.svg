@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-label="Walnut Frame Armchair">
+  
+  <defs>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity="0.24"/>
+    </filter>
+    <linearGradient id="studioBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbfbfa"/>
+      <stop offset="100%" stop-color="#e8e6e1"/>
+    </linearGradient>
+    <radialGradient id="floorFade" cx="50%" cy="60%" r="52%">
+      <stop offset="0%" stop-color="#d4d0c8" stop-opacity="0.58"/>
+      <stop offset="100%" stop-color="#d4d0c8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="320" fill="url(#studioBg)"/>
+  <ellipse cx="256" cy="255" rx="172" ry="38" fill="url(#floorFade)"/>
+  
+        <g filter="url(#softShadow)" transform="translate(0 2)">
+          <path d="M182 190 C182 126 211 96 257 96 C304 96 334 126 334 190 L334 213 C334 228 322 240 307 240 L209 240 C194 240 182 228 182 213 Z" fill="#efe7dc"/>
+          <path d="M207 174 C207 134 228 115 257 115 C287 115 308 134 308 174 L308 205 L207 205 Z" fill="#9b6a5b"/>
+          <rect x="162" y="164" width="46" height="72" rx="22" fill="#9b6a5b"/>
+          <rect x="306" y="164" width="46" height="72" rx="22" fill="#9b6a5b"/>
+          <path d="M203 239 L186 274 M312 239 L330 274" stroke="#4b342d" stroke-width="8" stroke-linecap="round"/>
+        </g>
+</svg>
