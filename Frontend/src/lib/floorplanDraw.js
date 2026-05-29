@@ -76,7 +76,7 @@ export function createRectangularRoom(floorplan, x1, y1, x2, y2, opts = {}) {
   const rooms = floorplan.getRooms?.() ?? [];
   const room = rooms[rooms.length - 1];
   if (room) {
-    room.setTexture('/rooms/textures/light_fine_wood.jpg', false, 300);
+    room.setTexture('/rooms/textures/wallmap.png', true, 0);
   }
 
   return true;

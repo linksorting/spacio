@@ -24,6 +24,14 @@
   color: #f0f0f0;
 }
 
+.placementHelp {
+  grid-column: 1 / -1;
+  padding: 0 4px 4px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
 .backBtn {
   background: none;
   border: none;

@@ -64,8 +64,8 @@ function ProductImage({ product }) {
       className="relative overflow-hidden"
       style={{
         height: 118,
-        background: 'linear-gradient(180deg, #f7f7f5 0%, #e7e5e0 100%)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        background: '#ffffff',
+        borderBottom: '1px solid #f0eeec',
       }}
     >
       {!loaded && !failed && (

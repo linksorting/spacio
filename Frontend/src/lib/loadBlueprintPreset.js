@@ -1,6 +1,14 @@
 import { USE_LEGACY_JS_RENDERER } from './rendererConfig';
 import { resolveCatalogModelUrl } from './resolveCatalogModelUrl';
+import { isBlockedModelUrl } from './modelFormats';
 import { createModelLoadId, normalizeItemType, settleItemOnFloor } from './blueprintHelpers';
+import {
+  applyBlueprintWallHeight,
+  buildPresetFloorplan,
+  buildRectangularFloorplan,
+  syncBlueprintViewsAfterLoad,
+} from './blueprintRoomLayout';
+import { createWallOpening } from './wallOpenings';
 
 const delay = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
@@ -23,16 +31,6 @@ function applyPresetTransform(item, spec) {
   item.position_set = true;
 }
 
-function applyWallHeight(bp3d, heightCm) {
-  const Config = window.BP3D?.Core?.Configuration;
-  if (Config?.setValue) {
-    Config.setValue('wallHeight', heightCm);
-  }
-  bp3d?.model?.floorplan?.getWalls?.().forEach((wall) => {
-    wall.height = heightCm;
-  });
-}
-
 /**
  * Load a furnished room preset into Blueprint3D.
  * @param {object} bp3d
@@ -40,12 +38,15 @@ function applyWallHeight(bp3d, heightCm) {
  * @param {{
  *   switchMode: (mode: 'floorplan' | '3d') => void,
  *   drawFootprints?: () => void,
+ *   onSync?: () => void,
  *   notify?: (message: string) => void,
  *   onGltfItems?: (items: object[]) => void,
+ *   onWallOpenings?: (openings: object[]) => void,
+ *   onCeilingFixtures?: (fixtures: object[]) => void,
  * }} callbacks
  */
 export async function loadBlueprintPreset(bp3d, presetId, callbacks) {
-  const { switchMode, drawFootprints, notify, onGltfItems } = callbacks;
+  const { notify } = callbacks;
   if (!bp3d) return;
 
   let preset;
@@ -59,68 +60,93 @@ export async function loadBlueprintPreset(bp3d, presetId, callbacks) {
     return;
   }
 
+  await loadBlueprintPresetData(bp3d, preset, callbacks);
+}
+
+/**
+ * Load an already-built furnished room preset into Blueprint3D.
+ * @param {object} bp3d
+ * @param {object} preset
+ * @param {Parameters<typeof loadBlueprintPreset>[2]} callbacks
+ */
+export async function loadBlueprintPresetData(bp3d, preset, callbacks) {
+  const {
+    switchMode,
+    drawFootprints,
+    onSync,
+    notify,
+    onGltfItems,
+    onWallOpenings,
+    onCeilingFixtures,
+  } = callbacks;
+  if (!bp3d || !preset) return;
+
   bp3d.model.scene.clearItems();
-  bp3d.model.floorplan.reset();
 
-  const w = preset.roomWidth ?? 500;
-  const d = preset.roomDepth ?? 450;
   const fp = bp3d.model.floorplan;
+  const wallHeightCm = preset.roomHeight ?? 270;
 
-  applyWallHeight(bp3d, preset.roomHeight ?? 270);
+  applyBlueprintWallHeight(bp3d, wallHeightCm);
+  const layoutOptions = {
+    wallHeightCm,
+    wallColor: preset.wallColor ?? null,
+    wallTexture: preset.wallTexture
+      ? {
+          url: preset.wallTexture,
+          stretch: preset.wallTextureStretch ?? true,
+          scale: preset.wallTextureScale ?? 0,
+        }
+      : null,
+    floorTexture: preset.floorTexture
+      ? {
+          url: preset.floorTexture,
+          stretch: preset.floorTextureStretch ?? false,
+          scale: preset.floorTextureScale ?? 300,
+        }
+      : null,
+  };
+  const createdWalls = preset.layout?.corners?.length && preset.layout?.walls?.length
+    ? buildPresetFloorplan(fp, preset.layout, layoutOptions)
+    : (() => {
+        buildRectangularFloorplan(fp, {
+          widthCm: preset.roomWidth ?? 500,
+          depthCm: preset.roomDepth ?? 450,
+          ...layoutOptions,
+        });
+        return fp.getWalls?.() ?? [];
+      })();
 
-  const c1 = fp.newCorner(-w / 2, -d / 2);
-  const c2 = fp.newCorner(w / 2, -d / 2);
-  const c3 = fp.newCorner(w / 2, d / 2);
-  const c4 = fp.newCorner(-w / 2, d / 2);
-
-  const wallTex = preset.wallTexture
-    ? {
-        url: preset.wallTexture,
-        stretch: preset.wallTextureStretch ?? true,
-        scale: preset.wallTextureScale ?? 0,
-      }
-    : null;
-
-  [[c1, c2], [c2, c3], [c3, c4], [c4, c1]].forEach(([start, end]) => {
-    const wall = fp.newWall(start, end);
-    if (wallTex) {
-      wall.frontTexture = { ...wallTex };
-      wall.backTexture = { ...wallTex };
-    }
-    if (preset.roomHeight) wall.height = preset.roomHeight;
+  const presetOpenings = (preset.openings ?? []).flatMap((entry) => {
+    const wall = createdWalls[entry.wallIndex];
+    if (!wall) return [];
+    return [createWallOpening(wall, entry.offsetAlongWall ?? 0.5, {
+      type: entry.type ?? 'door',
+      widthCm: entry.widthCm ?? 90,
+      heightCm: entry.heightCm ?? 210,
+      elevCm: entry.elevationCm ?? 0,
+      label: entry.label ?? entry.type ?? 'Opening',
+    })];
   });
+  onWallOpenings?.(presetOpenings);
+  onCeilingFixtures?.(preset.ceilingFixtures ?? []);
 
-  fp.update();
   await delay(120);
-
-  const rooms = fp.getRooms?.() ?? [];
-  rooms.forEach((room) => {
-    if (preset.floorTexture) {
-      room.setTexture(
-        preset.floorTexture,
-        preset.floorTextureStretch ?? false,
-        preset.floorTextureScale ?? 300,
-      );
-    }
-  });
 
   const specs = (preset.items ?? []).map((item, index) => ({
     ...item,
     index,
-    url: item.modelUrl.startsWith('/') ? item.modelUrl : `/${item.modelUrl}`,
+    url: (item.modelUrl ?? '').startsWith('/') ? item.modelUrl : `/${item.modelUrl ?? ''}`,
   }));
 
   await delay(150);
 
   const finish = () => {
-    fp.update?.();
-    bp3d.model.floorplan.update?.();
+    syncBlueprintViewsAfterLoad(bp3d, { onSync, drawFootprints });
     switchMode('3d');
     if (USE_LEGACY_JS_RENDERER) {
       bp3d.three.centerCamera?.();
       bp3d.three.needsUpdate?.();
     }
-    window.setTimeout(() => drawFootprints?.(), 350);
     notify?.(`Loaded ${preset.name}`);
   };
 
@@ -129,6 +155,10 @@ export async function loadBlueprintPreset(bp3d, presetId, callbacks) {
       const modelUrl = resolveCatalogModelUrl(spec.url);
       if (!modelUrl) {
         console.warn(`Preset item skipped (no GLTF/GLB): ${spec.name ?? spec.url}`);
+        return [];
+      }
+      if (isBlockedModelUrl(modelUrl)) {
+        console.warn(`Preset item skipped (broken model): ${spec.name ?? modelUrl}`);
         return [];
       }
       return [{

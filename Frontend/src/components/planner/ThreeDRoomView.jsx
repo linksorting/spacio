@@ -67,6 +67,8 @@ export default function ThreeDRoomView({ rooms, walls, items, wallColor = '#d8d4
     const container = mountRef.current;
     if (!container) return;
 
+    let mounted = true;
+
     const width = container.clientWidth;
     const height = container.clientHeight;
 
@@ -297,6 +299,7 @@ export default function ThreeDRoomView({ rooms, walls, items, wallColor = '#d8d4
 
     const loader = new GLTFLoader();
     const normalizeModel = (model, item) => {
+      if (!mounted) return;
       const ix = item.x * SCALE;
       const iz = item.y * SCALE;
       const iw = item.w * SCALE;
@@ -416,6 +419,7 @@ export default function ThreeDRoomView({ rooms, walls, items, wallColor = '#d8d4
     window.addEventListener('resize', onResize);
 
     return () => {
+      mounted = false;
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', onResize);
       canvas.removeEventListener('mousedown', onMouseDown);

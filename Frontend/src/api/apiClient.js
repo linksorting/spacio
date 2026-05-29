@@ -73,11 +73,20 @@ const request = async (path, options = {}) => {
     finalHeaders.Authorization = `Bearer ${resolvedToken}`;
   }
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    method,
-    headers: finalHeaders,
-    body: body !== undefined ? JSON.stringify(body) : undefined
-  });
+  let response;
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      method,
+      headers: finalHeaders,
+      body: body !== undefined ? JSON.stringify(body) : undefined
+    });
+  } catch (networkError) {
+    const error = new Error(networkError.message || 'Network request failed');
+    error.status = 0;
+    error.data = null;
+    error.isNetworkError = true;
+    throw error;
+  }
 
   const data = await parseResponseData(response);
   if (!response.ok) {

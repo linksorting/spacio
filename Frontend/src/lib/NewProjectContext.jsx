@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FolderPlus, LayoutTemplate, Square, Upload, X } from 'lucide-react';
@@ -6,8 +7,8 @@ import { setActiveProjectName } from '@/lib/project-session';
 import {
   PROJECT_START_MODES,
   pendingBackgroundKey,
-  slugifyProjectName,
 } from '@/lib/projectStart';
+import { uniqueProjectId, upsertProject } from '@/lib/projectRegistry';
 
 const NewProjectContext = createContext(null);
 
@@ -97,7 +98,7 @@ export function NewProjectProvider({ children }) {
       return;
     }
 
-    const slug = slugifyProjectName(trimmedName);
+    const slug = uniqueProjectId(trimmedName);
 
     if (startMode === PROJECT_START_MODES.UPLOAD && uploadPreview) {
       window.sessionStorage.setItem(pendingBackgroundKey(slug), JSON.stringify({
@@ -107,6 +108,7 @@ export function NewProjectProvider({ children }) {
       }));
     }
 
+    upsertProject({ id: slug, name: trimmedName });
     setActiveProjectName(trimmedName);
     closeNewProjectModal();
     navigate(`/editor/${slug}`, {

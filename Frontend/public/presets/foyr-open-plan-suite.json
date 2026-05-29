@@ -1,0 +1,38 @@
+{
+  "name": "Foyr Open Plan Suite",
+  "style": "Contemporary",
+  "roomWidth": 760,
+  "roomDepth": 540,
+  "roomHeight": 285,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "wallTextureScale": 0,
+  "floorTexture": "/rooms/textures/light_fine_wood.jpg",
+  "floorTextureScale": 300,
+  "floorTextureStretch": false,
+  "openings": [
+    { "wallIndex": 2, "type": "door", "offsetAlongWall": 0.22, "widthCm": 96, "heightCm": 215, "label": "Entry door" },
+    { "wallIndex": 0, "type": "window", "offsetAlongWall": 0.28, "widthCm": 150, "heightCm": 125, "elevationCm": 84, "label": "Living picture window" },
+    { "wallIndex": 0, "type": "window", "offsetAlongWall": 0.72, "widthCm": 150, "heightCm": 125, "elevationCm": 84, "label": "Dining picture window" },
+    { "wallIndex": 1, "type": "window", "offsetAlongWall": 0.52, "widthCm": 120, "heightCm": 120, "elevationCm": 88, "label": "Kitchen casement" }
+  ],
+  "ceilingFixtures": [
+    { "id": "living-pendant", "type": "pendant", "x": -190, "y": 268, "z": 20, "color": "#f4dfbf" },
+    { "id": "dining-pendant-a", "type": "pendant", "x": 210, "y": 268, "z": 145, "color": "#f7ead2" },
+    { "id": "dining-pendant-b", "type": "pendant", "x": 285, "y": 268, "z": 145, "color": "#f7ead2" },
+    { "id": "kitchen-spot-a", "type": "spot", "x": 190, "y": 274, "z": -155, "color": "#fff2d7" },
+    { "id": "kitchen-spot-b", "type": "spot", "x": 315, "y": 274, "z": -155, "color": "#fff2d7" }
+  ],
+  "items": [
+    { "modelUrl": "/models/imported-products/sofa-03/sofa_03_1k.gltf", "name": "Textured Sofa", "type": 1, "x": -210, "z": 120, "rot": 0, "widthCm": 235, "depthCm": 95, "heightCm": 88 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Lounge Chair", "type": 1, "x": -20, "z": 125, "rot": -0.85, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
+    { "modelUrl": "/models/imported-products/coffee-table-round-01/coffee_table_round_01_1k.gltf", "name": "Round Coffee Table", "type": 1, "x": -130, "z": 20, "rot": 0, "widthCm": 105, "depthCm": 105, "heightCm": 42 },
+    { "modelUrl": "/models/imported-products/round-wooden-table-01/round_wooden_table_01_1k.gltf", "name": "Dining Table", "type": 1, "x": 250, "z": 120, "rot": 0, "widthCm": 120, "depthCm": 120, "heightCm": 76 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Dining Chair 1", "type": 1, "x": 178, "z": 120, "rot": 1.5708, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Dining Chair 2", "type": 1, "x": 322, "z": 120, "rot": -1.5708, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
+    { "modelUrl": "/models/imported-products/obj-elegant-kitchen/Kitchen_2_obj.obj", "name": "Elegant Kitchen Run", "type": 1, "x": 245, "z": -150, "rot": 3.14159, "widthCm": 400, "depthCm": 400, "heightCm": 270 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Tall Display Cabinet", "type": 1, "x": -335, "z": -150, "rot": 1.5708, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
+    { "modelUrl": "/models/imported-products/potted-plant/potted_plant_02_1k.gltf", "name": "Corner Plant", "type": 1, "x": -330, "z": 210, "rot": 0, "widthCm": 40, "depthCm": 40, "heightCm": 80 },
+    { "modelUrl": "/models/imported-products/fancy-picture-frame/fancy_picture_frame_02_1k.gltf", "name": "Framed Art", "type": 2, "x": -5, "z": -255, "rot": 0, "widthCm": 60, "depthCm": 5, "heightCm": 80 }
+  ]
+}

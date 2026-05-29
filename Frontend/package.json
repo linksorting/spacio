@@ -14,7 +14,9 @@
   "convert:kenney": "node scripts/convert-kenney-glb.mjs",
   "import:gltf-products": "node scripts/import-gltf-products.mjs",
   "sync:kenney-assets": "node scripts/sync-kenney-assets.mjs",
+  "sync:finalasset-thumbnails": "node scripts/sync-finalasset-thumbnails.mjs",
   "fetch:legacy-assets": "node scripts/fetch-legacy-assets.mjs",
+  "thumbnails": "node scripts/renderThumbnails.mjs",
   "generate:product-thumbnails": "blender --background --python scripts/render-product-thumbnails.blender.py -- --models public/assets/products/models --thumbnails public/assets/products/thumbnails --top-view public/assets/products/top-view"
  },
  "dependencies": {
@@ -97,15 +99,18 @@
   "@vitejs/plugin-react": "^4.3.4",
   "autoprefixer": "^10.4.20",
   "baseline-browser-mapping": "^2.8.32",
+  "canvas": "^3.2.3",
   "eslint": "^9.19.0",
   "eslint-plugin-react": "^7.37.4",
   "eslint-plugin-react-hooks": "^5.0.0",
   "eslint-plugin-react-refresh": "^0.4.18",
   "eslint-plugin-unused-imports": "^4.3.0",
+  "gl": "^8.1.6",
   "globals": "^15.14.0",
   "postcss": "^8.5.3",
   "sharp": "^0.34.5",
   "tailwindcss": "^3.4.17",
+  "three-headless": "npm:three@^0.149.0",
   "typescript": "^5.8.2",
   "vite": "^6.1.0"
  }

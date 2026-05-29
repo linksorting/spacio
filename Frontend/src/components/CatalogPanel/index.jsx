@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { CATALOG_FILTERS } from '@/lib/catalogData';
+import { getThumbnail } from '@/lib/thumbnails';
 import styles from './CatalogPanel.module.css';
 
 /**
@@ -15,9 +16,10 @@ import styles from './CatalogPanel.module.css';
  *   onClose: () => void,
  *   onAddItem: (item: import('@/lib/catalogData').FurnitureItem) => void,
  *   onDragItemStart?: (event: DragEvent, item: import('@/lib/catalogData').FurnitureItem) => void,
+ *   onDragItemEnd?: () => void,
  * }} props
  */
-export default function CatalogPanel({ categories, onClose, onAddItem, onDragItemStart }) {
+export default function CatalogPanel({ categories, onClose, onAddItem, onDragItemStart, onDragItemEnd }) {
   const [query, setQuery] = useState('');
   const [exactMatch, setExact] = useState(false);
   const [activeFilter, setFilter] = useState('All');
@@ -108,7 +110,11 @@ export default function CatalogPanel({ categories, onClose, onAddItem, onDragIte
       <div className={styles.grid}>
         {drillCategory ? (
           drillCategory.items.length > 0 ? (
-            drillCategory.items
+            <>
+              <div className={styles.placementHelp}>
+                Click to preview placement, or drag directly into the room.
+              </div>
+              {drillCategory.items
               .filter((item) => {
                 const q = query.toLowerCase();
                 if (!q) return true;
@@ -125,11 +131,12 @@ export default function CatalogPanel({ categories, onClose, onAddItem, onDragIte
                   tabIndex={0}
                   draggable
                   onDragStart={(event) => onDragItemStart?.(event, item)}
-                  title={`Add ${item.name} to scene`}
+                  onDragEnd={() => onDragItemEnd?.()}
+                  title={`Place ${item.name} in the room`}
                 >
                   <div className={`${styles.tileImageBox} ${isLegacy(item.source) ? styles.tileImageBoxLegacy : ''}`}>
                     <img
-                      src={item.thumbnail}
+                      src={getThumbnail(item.modelUrl, item.thumbnail)}
                       alt={item.name}
                       className={styles.tileImage}
                       loading="lazy"
@@ -146,7 +153,8 @@ export default function CatalogPanel({ categories, onClose, onAddItem, onDragIte
                     </span>
                   </div>
                 </div>
-              ))
+              ))}
+            </>
           ) : (
             <div className={styles.emptyState}>
               No items in this category yet.

@@ -1,0 +1,39 @@
+{
+  "name": "Boutique Master Suite",
+  "style": "Boutique",
+  "roomHeight": 285,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "wallTextureScale": 0,
+  "floorTexture": "/rooms/textures/hardwood.png",
+  "floorTextureScale": 300,
+  "floorTextureStretch": false,
+  "layout": {
+    "corners": [
+      [-330, -240], [330, -240], [330, 240], [60, 240], [60, 60], [-330, 60]
+    ],
+    "walls": [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 0]]
+  },
+  "openings": [
+    { "wallIndex": 5, "type": "door", "offsetAlongWall": 0.18, "widthCm": 88, "heightCm": 212, "label": "Suite entry" },
+    { "wallIndex": 4, "type": "doorway", "offsetAlongWall": 0.52, "widthCm": 105, "heightCm": 230, "label": "Dressing opening" },
+    { "wallIndex": 0, "type": "window", "offsetAlongWall": 0.48, "widthCm": 180, "heightCm": 122, "elevationCm": 86, "label": "Bedroom window" },
+    { "wallIndex": 2, "type": "window", "offsetAlongWall": 0.5, "widthCm": 100, "heightCm": 70, "elevationCm": 152, "label": "Bath window" }
+  ],
+  "ceilingFixtures": [
+    { "id": "bedroom-fan", "type": "fan", "x": -120, "y": 270, "z": -75, "color": "#f7e3c6" },
+    { "id": "bath-spot-a", "type": "spot", "x": 190, "y": 274, "z": 150, "color": "#fff2dc" },
+    { "id": "bath-spot-b", "type": "spot", "x": 275, "y": 274, "z": 150, "color": "#fff2dc" },
+    { "id": "wardrobe-pendant", "type": "pendant", "x": -110, "y": 268, "z": 150, "color": "#f4dfbf" }
+  ],
+  "items": [
+    { "modelUrl": "/models/imported-products/gothic-bed-01/GothicBed_01_1k.gltf", "name": "Statement Bed", "type": 1, "x": -145, "z": -55, "rot": 0, "widthCm": 190, "depthCm": 220, "heightCm": 110 },
+    { "modelUrl": "/models/imported-products/obj-wardrobe-a3/ALEX Wardrobe A3.obj", "name": "Wardrobe Wall", "type": 1, "x": -230, "z": 155, "rot": 1.5708, "widthCm": 100, "depthCm": 60, "heightCm": 200 },
+    { "modelUrl": "/models/imported-products/obj-wardrobe-a3/ALEX Wardrobe A3.obj", "name": "Wardrobe Wall 2", "type": 1, "x": -100, "z": 155, "rot": 1.5708, "widthCm": 100, "depthCm": 60, "heightCm": 200 },
+    { "modelUrl": "/models/imported-products/obj-bathtub/Bathtub.obj", "name": "Freestanding Tub", "type": 1, "x": 205, "z": 125, "rot": 1.5708, "widthCm": 170, "depthCm": 80, "heightCm": 58 },
+    { "modelUrl": "/models/imported-products/obj-bathroom-vanity/Bathroom_Sink_Cabinet.obj", "name": "Vanity Cabinet", "type": 1, "x": 215, "z": -10, "rot": 3.14159, "widthCm": 80, "depthCm": 45, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/obj-modern-toilet/Modern_Toilet_Open_OBJ.obj", "name": "Modern Toilet", "type": 1, "x": 300, "z": 10, "rot": -1.5708, "widthCm": 45, "depthCm": 65, "heightCm": 80 },
+    { "modelUrl": "/models/imported-products/obj-table-lamp/5. Table Lamp.obj", "name": "Bedside Lamp", "type": 1, "x": -270, "z": -60, "rot": 0, "widthCm": 40, "depthCm": 40, "heightCm": 55 },
+    { "modelUrl": "/models/imported-products/potted-plant/potted_plant_02_1k.gltf", "name": "Dressing Plant", "type": 1, "x": 10, "z": 170, "rot": 0, "widthCm": 40, "depthCm": 40, "heightCm": 80 }
+  ]
+}

@@ -51,23 +51,23 @@ function AIHubPanel() {
 // ── Main Planner ──────────────────────────────────────────────────────────────
 const emptyPlan = { rooms: [], walls: [], items: [] };
 
-const storageKeyForProject = (projectName) => (
-  `designer_pro_planner_state_${String(projectName || 'Design').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_')}`
-);
+const storageKeyForProject = (projectName, floor = 0) => {
+  const base = `designer_pro_planner_state_${String(projectName || 'Design').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_')}`;
+  return floor === 0 ? base : `${base}_floor_${floor}`;
+};
 
-const readPlannerProject = (projectName) => {
+const readPlannerProject = (projectName, floor = 0) => {
   if (typeof window === 'undefined') return null;
-
   try {
-    return JSON.parse(window.localStorage.getItem(storageKeyForProject(projectName)) || 'null');
+    return JSON.parse(window.localStorage.getItem(storageKeyForProject(projectName, floor)) || 'null');
   } catch (error) {
     return null;
   }
 };
 
-const savePlannerProject = (projectName, data) => {
+const savePlannerProject = (projectName, data, floor = 0) => {
   if (typeof window === 'undefined') return;
-  window.localStorage.setItem(storageKeyForProject(projectName), JSON.stringify(data));
+  window.localStorage.setItem(storageKeyForProject(projectName, floor), JSON.stringify(data));
 };
 
 const escapeXml = (value = '') => String(value)
@@ -135,9 +135,11 @@ export default function BathroomPlanner({ projectName = 'Design' }) {
   );
 }
 
+const FLOOR_LABELS = ['Ground', '1st Floor', '2nd Floor'];
+
 function PlannerInner({ projectName }) {
   const navigate = useNavigate();
-  const savedProjectRef = useRef(readPlannerProject(projectName));
+  const savedProjectRef = useRef(readPlannerProject(projectName, 0));
   const canvasRef = useRef(null);
   const uploadInputRef = useRef(null);
   const [activeNav, setActiveNav] = useState(null);
@@ -156,6 +158,38 @@ function PlannerInner({ projectName }) {
   const [planSnapshot, setPlanSnapshot] = useState(savedProjectRef.current?.plan || emptyPlan);
   const [backgroundPlan, setBackgroundPlan] = useState(savedProjectRef.current?.backgroundPlan || null);
   const [savedAt, setSavedAt] = useState(savedProjectRef.current?.savedAt || null);
+  // ── Multi-floor ──────────────────────────────────────────────────────────────
+  const [currentFloor, setCurrentFloor] = useState(0);
+  const [canvasKey, setCanvasKey] = useState('floor-0');
+  const [floorInitialPlan, setFloorInitialPlan] = useState(savedProjectRef.current?.plan || emptyPlan);
+  const [totalFloors, setTotalFloors] = useState(() => {
+    const stored = Number(window.localStorage.getItem(`${storageKeyForProject(projectName, 0)}_totalFloors`) || '1');
+    return Math.max(1, Math.min(3, stored));
+  });
+
+  const handleFloorSwitch = (newFloor) => {
+    if (newFloor === currentFloor) return;
+    // Save current floor's plan
+    const plan = canvasRef.current?.getPlan?.() || planSnapshot;
+    savePlannerProject(projectName, { plan, backgroundPlan, savedAt: new Date().toISOString() }, currentFloor);
+    // Load new floor
+    const saved = readPlannerProject(projectName, newFloor);
+    const nextPlan = saved?.plan || emptyPlan;
+    setFloorInitialPlan(nextPlan);
+    setPlanSnapshot(nextPlan);
+    setCurrentFloor(newFloor);
+    setCanvasKey(`floor-${newFloor}`);
+    setStatusMessage(`Switched to ${FLOOR_LABELS[newFloor]}`);
+  };
+
+  const handleAddFloor = () => {
+    if (totalFloors >= 3) return;
+    const next = totalFloors;
+    const nextTotal = totalFloors + 1;
+    setTotalFloors(nextTotal);
+    window.localStorage.setItem(`${storageKeyForProject(projectName, 0)}_totalFloors`, String(nextTotal));
+    handleFloorSwitch(next);
+  };
   const [statusMessage, setStatusMessage] = useState('Ready to design');
   const { drawTool, setDrawTool, draggingProduct, setDraggingProduct } = useDrag();
 
@@ -173,16 +207,11 @@ function PlannerInner({ projectName }) {
   useEffect(() => {
     const saveTimer = window.setTimeout(() => {
       const nextSavedAt = new Date().toISOString();
-      savePlannerProject(projectName, {
-        plan: planSnapshot,
-        backgroundPlan,
-        savedAt: nextSavedAt,
-      });
+      savePlannerProject(projectName, { plan: planSnapshot, backgroundPlan, savedAt: nextSavedAt }, currentFloor);
       setSavedAt(nextSavedAt);
     }, 450);
-
     return () => window.clearTimeout(saveTimer);
-  }, [projectName, planSnapshot, backgroundPlan]);
+  }, [projectName, planSnapshot, backgroundPlan, currentFloor]);
 
   useEffect(() => {
     if (!statusMessage || statusMessage === 'Ready to design') return undefined;
@@ -197,7 +226,7 @@ function PlannerInner({ projectName }) {
   const handleManualSave = () => {
     const nextSavedAt = new Date().toISOString();
     const plan = canvasRef.current?.getPlan?.() || planSnapshot;
-    savePlannerProject(projectName, { plan, backgroundPlan, savedAt: nextSavedAt });
+    savePlannerProject(projectName, { plan, backgroundPlan, savedAt: nextSavedAt }, currentFloor);
     setPlanSnapshot(plan);
     setSavedAt(nextSavedAt);
     setStatusMessage('Project saved to this browser.');
@@ -408,6 +437,51 @@ function PlannerInner({ projectName }) {
             <span className="text-[10px] text-white/35">{statusMessage}</span>
           </div>
 
+          {/* ── Floor selector ─────────────────────────────────────────────── */}
+          <div className="flex items-center gap-1.5 mr-2">
+            <span className="text-[10px] text-white/30 hidden sm:block">Floor</span>
+            <div
+              className="flex items-center overflow-hidden"
+              style={{ border: '1px solid rgba(255,255,255,0.14)', borderRadius: 6 }}
+            >
+              {Array.from({ length: totalFloors }).map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleFloorSwitch(idx)}
+                  title={FLOOR_LABELS[idx]}
+                  className="px-2.5 py-1 text-[11px] font-bold transition-all"
+                  style={{
+                    background: currentFloor === idx ? 'rgba(232,122,90,0.22)' : 'transparent',
+                    color: currentFloor === idx ? '#e87a5a' : 'rgba(255,255,255,0.38)',
+                    borderRight: idx < totalFloors - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                    minWidth: 28,
+                  }}
+                >
+                  {idx === 0 ? 'G' : idx}
+                </button>
+              ))}
+              {totalFloors < 3 && (
+                <button
+                  onClick={handleAddFloor}
+                  title="Add floor"
+                  className="px-2 py-1 text-[11px] transition-all"
+                  style={{
+                    borderLeft: '1px solid rgba(255,255,255,0.08)',
+                    color: 'rgba(255,255,255,0.28)',
+                  }}
+                >
+                  +
+                </button>
+              )}
+            </div>
+            <span
+              className="text-[10px] hidden sm:block"
+              style={{ color: '#e87a5a', minWidth: 52 }}
+            >
+              {FLOOR_LABELS[currentFloor]}
+            </span>
+          </div>
+
           {/* Right */}
           <div className="flex items-center gap-2">
             <button onClick={() => navigate('/pricing')} className="px-3 py-1 rounded text-xs font-bold text-white/80 hover:bg-white/5 transition-all" style={{ border: '1px solid rgba(255,255,255,0.2)' }}>
@@ -429,6 +503,7 @@ function PlannerInner({ projectName }) {
         {/* Canvas (drawing/placement/selection handled inside) */}
         <div className="flex-1 relative flex flex-col">
           <PlannerCanvas
+            key={canvasKey}
             ref={canvasRef}
             view2D={view2D}
             zoom={zoom}
@@ -439,7 +514,7 @@ function PlannerInner({ projectName }) {
             setDraggingProduct={setDraggingProduct}
             wallColor={wallColor}
             floorTexture={floorTexture}
-            initialPlan={savedProjectRef.current?.plan || emptyPlan}
+            initialPlan={floorInitialPlan}
             backgroundPlan={backgroundPlan}
             onPlanChange={setPlanSnapshot}
             onSwitchTo3D={() => setView2D(false)}

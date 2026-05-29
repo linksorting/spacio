@@ -147,7 +147,7 @@ function AssetsPanel({ notify }) {
       notify(result.message);
       return;
     }
-    notify(result.message || `${getSpacioProduct(id).name} added to scene`);
+    notify(result.message || `${getSpacioProduct(id)?.name ?? id} added to scene`);
   };
   const filterButton = (value, current, label, onClick) => (
     <button key={value} type="button" onClick={onClick} className={`rounded-full px-2 py-0.5 text-[10px] ${current === value ? 'bg-fuchsia-600 text-white' : 'bg-white/5 text-stone-400 hover:text-white'}`}>{label}</button>
@@ -316,7 +316,7 @@ export function RightSidebar({ notify }) {
               {getSpacioProduct(entity.value.productId)?.thumbnailUrl ? (
                 <img src={getSpacioProduct(entity.value.productId).thumbnailUrl} alt="" className="h-28 w-full rounded-xl border border-white/10 object-cover" />
               ) : null}
-              <p className="text-xs text-stone-400">{getSpacioProduct(entity.value.productId)?.brand} | ${getSpacioProduct(entity.value.productId)?.price.toLocaleString()}</p>
+              <p className="text-xs text-stone-400">{getSpacioProduct(entity.value.productId)?.brand ?? ''} | ${getSpacioProduct(entity.value.productId)?.price?.toLocaleString() ?? ''}</p>
               <div className="grid grid-cols-2 gap-2">
                 <Field title="X cm"><input type="number" value={entity.value.position.x} onChange={(event) => updateFurnitureTransform(entity.value.id, { position: { ...entity.value.position, x: Number(event.target.value) } })} className={inputClass} /></Field>
                 <Field title="Y cm"><input type="number" value={entity.value.position.y} onChange={(event) => updateFurnitureTransform(entity.value.id, { position: { ...entity.value.position, y: Number(event.target.value) } })} className={inputClass} /></Field>
@@ -353,7 +353,7 @@ export function ProductStrip() {
         return (
         <button type="button" key={item.id} onClick={() => selectObject(item.id)} className={`group relative flex h-14 w-36 shrink-0 items-center gap-2 rounded-lg border p-1.5 text-left transition ${scene.selectedIds.includes(item.id) ? 'border-fuchsia-500 bg-fuchsia-500/10' : 'border-white/10 bg-white/[.03] hover:border-white/20'}`}>
           <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-md bg-[#f5f2ec]">
-            {product ? <img src={product.thumbnailUrl} alt="" className="h-full w-full object-cover" /> : <span className="flex h-full w-full items-center justify-center bg-black/20"><Box size={16} className="text-stone-500" /></span>}
+            {product?.thumbnailUrl ? <img src={product.thumbnailUrl} alt="" className="h-full w-full object-cover" /> : <span className="flex h-full w-full items-center justify-center bg-black/20"><Box size={16} className="text-stone-500" /></span>}
           </span>
           <span className="min-w-0 line-clamp-2 text-[10px] font-medium text-stone-200">{item.name}</span>
           <span onClick={(event) => { event.stopPropagation(); deleteFurniture(item.id); }} className="absolute right-1 top-1 hidden rounded bg-black/50 p-1 text-stone-300 group-hover:block"><X size={11} /></span>

@@ -37,7 +37,7 @@ export function AnalyzeRoom({ notify }) {
               </>
             )}
             {(upload ? pins : active.products.map((productId, index) => ({ productId, x: 17 + index * 12, y: 38 + (index % 3) * 17 }))).map((pin, index) => (
-              <button type="button" key={`${pin.productId}-${index}`} onClick={(event) => { event.stopPropagation(); addFurniture(pin.productId); notify(`${getSpacioProduct(pin.productId).name} added to scene`); }} title={getSpacioProduct(pin.productId).name} className="absolute flex h-8 w-8 animate-pulse items-center justify-center rounded-full bg-fuchsia-600 text-sm font-semibold text-white shadow-lg" style={{ left: `${pin.x}%`, top: `${pin.y}%` }}>{index + 1}</button>
+              <button type="button" key={`${pin.productId}-${index}`} onClick={(event) => { event.stopPropagation(); addFurniture(pin.productId); notify(`${getSpacioProduct(pin.productId)?.name ?? pin.productId} added to scene`); }} title={getSpacioProduct(pin.productId)?.name ?? pin.productId} className="absolute flex h-8 w-8 animate-pulse items-center justify-center rounded-full bg-fuchsia-600 text-sm font-semibold text-white shadow-lg" style={{ left: `${pin.x}%`, top: `${pin.y}%` }}>{index + 1}</button>
             ))}
           </div>
           <div>
@@ -51,7 +51,7 @@ export function AnalyzeRoom({ notify }) {
             <div className="space-y-2">
               {active.products.map((id) => {
                 const product = getSpacioProduct(id);
-                return <button type="button" key={id} onClick={() => { addFurniture(id); notify(`${product.name} added to scene`); }} className="flex w-full items-center gap-3 rounded-xl border border-stone-200 bg-white p-3 text-left hover:border-fuchsia-300"><span className="h-10 w-10 rounded-lg bg-stone-100" /><span className="min-w-0 flex-1"><span className="block truncate text-xs font-medium">{product.name}</span><span className="text-[11px] text-stone-500">${product.price.toLocaleString()}</span></span><Plus size={14} /></button>;
+                return <button type="button" key={id} onClick={() => { addFurniture(id); notify(`${product?.name ?? id} added to scene`); }} className="flex w-full items-center gap-3 rounded-xl border border-stone-200 bg-white p-3 text-left hover:border-fuchsia-300"><span className="h-10 w-10 rounded-lg bg-stone-100" /><span className="min-w-0 flex-1"><span className="block truncate text-xs font-medium">{product?.name ?? id}</span><span className="text-[11px] text-stone-500">${product?.price?.toLocaleString() ?? ''}</span></span><Plus size={14} /></button>;
               })}
             </div>
           </div>
@@ -108,7 +108,7 @@ export function Moodboard({ notify }) {
               style={{ left: element.x, top: element.y, width: element.width, height: element.height, transform: `rotate(${element.rotation}deg)`, zIndex: element.zIndex, background: element.type === 'swatch' ? element.data.color : '#fff' }}
             >
               {element.type === 'text' ? <div className="p-4 text-lg font-semibold">{element.data.text}</div> : null}
-              {element.type === 'product' ? <div className="flex h-full flex-col items-center justify-center bg-stone-50 text-xs"><div className="mb-2 h-12 w-16 rounded-lg bg-stone-200" />{getSpacioProduct(element.data.productId).name}</div> : null}
+              {element.type === 'product' ? <div className="flex h-full flex-col items-center justify-center bg-stone-50 text-xs"><div className="mb-2 h-12 w-16 rounded-lg bg-stone-200" />{getSpacioProduct(element.data.productId)?.name ?? element.data.productId}</div> : null}
               <button type="button" onPointerDown={(event) => event.stopPropagation()} onClick={() => remove(element.id)} className="absolute right-1 top-1 rounded-full bg-white/80 p-1 text-stone-600"><X size={12} /></button>
             </div>
           ))}

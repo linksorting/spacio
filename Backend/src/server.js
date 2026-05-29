@@ -1,9 +1,16 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import fs from 'fs';
 import jwt from 'jsonwebtoken';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
+
+const backendDir = path.dirname(fileURLToPath(import.meta.url));
+const frontendPublicDir = path.resolve(backendDir, '../../Frontend/public');
+const modelsDir = path.join(frontendPublicDir, 'models');
 
 const app = express();
 
@@ -94,7 +101,7 @@ const getCurrentUser = (request) => {
 app.use(cors({
   origin: frontendOrigin === '*' ? true : frontendOrigin
 }));
-app.use(express.json());
+app.use(express.json({ limit: '100kb' }));
 
 app.get('/health', (request, response) => {
   response.json({
@@ -113,7 +120,7 @@ app.get('/api/apps/public/prod/public-settings/by-id/:requestedAppId', (request,
   const currentUser = getCurrentUser(request);
 
   if (authRequired && !currentUser) {
-    return response.status(403).json(buildAuthRequiredError());
+    return response.status(401).json(buildAuthRequiredError());
   }
 
   if (currentUser && !isUserRegistered(currentUser)) {
@@ -131,14 +138,14 @@ app.get('/api/apps/public/prod/public-settings/by-id/:requestedAppId', (request,
 
 app.post('/api/auth/login', (request, response) => {
   const { email, password } = request.body || {};
-  if (!email || !password) {
+  if (typeof email !== 'string' || typeof password !== 'string' || !email || !password) {
     return response.status(400).json({
       message: 'Email and password are required'
     });
   }
 
   const user = users.find((candidate) => (
-    candidate.email.toLowerCase() === String(email).toLowerCase()
+    candidate.email?.toLowerCase() === email.toLowerCase()
   ));
 
   if (!user || user.password !== password) {
@@ -151,18 +158,24 @@ app.post('/api/auth/login', (request, response) => {
     return response.status(403).json(buildUserNotRegisteredError());
   }
 
-  const token = jwt.sign(
-    {
-      sub: user.id,
-      email: user.email,
-      role: user.role,
-      name: user.name
-    },
-    jwtSecret,
-    {
-      expiresIn: tokenExpiresIn
-    }
-  );
+  let token;
+  try {
+    token = jwt.sign(
+      {
+        sub: user.id,
+        email: user.email,
+        role: user.role,
+        name: user.name
+      },
+      jwtSecret,
+      {
+        expiresIn: tokenExpiresIn
+      }
+    );
+  } catch (jwtError) {
+    console.error('Token signing failed:', jwtError);
+    return response.status(500).json({ message: 'Authentication service error' });
+  }
 
   return response.json({
     access_token: token,
@@ -191,9 +204,39 @@ app.post('/api/auth/logout', (request, response) => {
   response.status(204).send();
 });
 
+app.get('/api/catalog/files', (request, response) => {
+  /** @type {string[]} */
+  const files = [];
+
+  const walk = (dir) => {
+    if (!fs.existsSync(dir)) return;
+    for (const entry of fs.readdirSync(dir)) {
+      const full = path.join(dir, entry);
+      if (fs.statSync(full).isDirectory()) {
+        walk(full);
+        continue;
+      }
+      if (/\.(glb|gltf|obj)$/i.test(entry)) {
+        files.push(`/${path.relative(frontendPublicDir, full).replace(/\\/g, '/')}`);
+      }
+    }
+  };
+
+  walk(modelsDir);
+  files.sort();
+  return response.json({ files, count: files.length });
+});
+
 app.use((request, response) => {
   response.status(404).json({
     message: 'Route not found'
+  });
+});
+
+app.use((error, request, response, next) => {
+  console.error('Unhandled error:', error);
+  response.status(500).json({
+    message: 'Internal server error'
   });
 });
 

@@ -44,7 +44,7 @@ function PlacedTemplateItem({ item, selected, onSelect, onMove }) {
         onSelect(item.sourceItem);
       }}
     >
-      <LoadedModel url={item.previewModelUrl} />
+      <LoadedModel url={item.previewModelUrl} materialUrl={item.materialUrl} widthCm={item.widthCm} depthCm={item.depthCm} heightCm={item.heightCm} />
     </group>
   );
 

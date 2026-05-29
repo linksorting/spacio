@@ -11,7 +11,7 @@
   "floorTextureScale": 300,
   "floorTextureStretch": false,
   "items": [
-    { "modelUrl": "/models/imported-products/realistic-sofa-005/realistic-sofa-005.glb", "name": "Linen Sofa", "type": 1, "x": 0, "z": 110, "rot": 3.14159, "widthCm": 220, "depthCm": 92, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/sofa-01/Sofa_01_1k.gltf", "name": "Linen Sofa", "type": 1, "x": 0, "z": 110, "rot": 3.14159, "widthCm": 220, "depthCm": 92, "heightCm": 85 },
     { "modelUrl": "/models/imported-products/round-wooden-table-01/round_wooden_table_01_1k.gltf", "name": "Coffee Table", "type": 1, "x": 0, "z": -20, "rot": 0, "widthCm": 120, "depthCm": 120, "heightCm": 76 },
     { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Accent Chair L", "type": 1, "x": -230, "z": 60, "rot": 0.7854, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
     { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Accent Chair R", "type": 1, "x": 230, "z": 60, "rot": -0.7854, "widthCm": 82, "depthCm": 88, "heightCm": 86 },

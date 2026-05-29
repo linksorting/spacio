@@ -90,3 +90,63 @@
   max-width: 340px;
   text-align: center;
 }
+
+.placementHint {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.16);
+  border: 0.5px solid rgba(16, 185, 129, 0.35);
+  color: #a7f3d0;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.controlsHelp {
+  position: absolute;
+  left: 16px;
+  bottom: 18px;
+  z-index: 15;
+  max-width: min(420px, calc(100% - 120px));
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(22, 22, 24, 0.78);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  line-height: 1.45;
+  pointer-events: none;
+}
+
+.zoomControls {
+  position: absolute;
+  right: 16px;
+  bottom: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 4;
+}
+
+.zoomBtn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(22, 22, 24, 0.88);
+  color: #f5f5f5;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.zoomBtn:hover {
+  background: rgba(40, 40, 44, 0.95);
+  border-color: rgba(137, 121, 255, 0.55);
+}

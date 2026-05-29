@@ -66,7 +66,7 @@ function pointInPolygon(x, y, corners) {
 
 /** Correct floor height and keep item inside the room footprint. */
 export function settleItemOnFloor(item, floorplan) {
-  if (!item) return;
+  if (!item || !item.position) return;
   item.position.y = item.halfSize?.y ?? item.position.y;
 
   const rooms = floorplan?.getRooms?.() ?? [];
@@ -93,7 +93,7 @@ export function getFloorSpecFromBlueprint(bp3d) {
   const center = fp.getCenter?.();
   if (size && center) {
     const width = size.x ?? size.width ?? 0;
-    const depth = size.z ?? size.depth ?? 0;
+    const depth = size.z ?? size.y ?? size.depth ?? 0;
     return {
       width: width > 0 ? width : 400,
       depth: depth > 0 ? depth : 400,
@@ -125,7 +125,7 @@ function normalizeTextureUrl(url = '') {
 }
 
 /** @typedef {{ x: number, z: number }} ShellPoint */
-/** @typedef {{ corners: ShellPoint[], textureUrl: string, textureScale: number }} ShellRoom */
+/** @typedef {{ corners: ShellPoint[], textureUrl: string, textureScale: number, ceilingHeight: number }} ShellRoom */
 /** @typedef {{ footprint: ShellPoint[], height: number }} ShellPhysicalWall */
 /** @typedef {{ footprint: ShellPoint[], height: number, textureUrl: string, textureStretch: boolean, textureScale: number, sourceEdge?: object }} ShellWall */
 /** @typedef {{ rooms: ShellRoom[], walls: ShellWall[], physicalWalls: ShellPhysicalWall[] }} BlueprintRoomShell */
@@ -170,6 +170,8 @@ export function extractBlueprintRoomShell(bp3d) {
       })),
       textureUrl: normalizeTextureUrl(texture.url),
       textureScale: texture.scale ?? 400,
+      textureStretch: texture.stretch ?? false,
+      ceilingHeight: toMeters(room.edgePointer?.wall?.height ?? fp.getWalls?.()[0]?.height ?? 250),
     };
   }).filter((room) => room.corners.length >= 3);
 
@@ -246,6 +248,11 @@ export function extractBlueprintRoomShell(bp3d) {
     physicalWalls.push({
       footprint,
       height: toMeters(wall.height ?? edge.height ?? 250),
+      wallId: wall?.getStart?.()?.id != null && wall?.getEnd?.()?.id != null
+        ? `${wall.getStart().id}${wall.getEnd().id}`
+        : null,
+      wallStartCm: wall ? { x: wall.getStartX?.() ?? 0, z: wall.getStartY?.() ?? 0 } : null,
+      wallEndCm: wall ? { x: wall.getEndX?.() ?? 0, z: wall.getEndY?.() ?? 0 } : null,
     });
   };
 

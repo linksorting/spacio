@@ -12,9 +12,9 @@
   "floorTextureStretch": false,
   "items": [
     { "modelUrl": "/models/imported-products/round-wooden-table-01/round_wooden_table_01_1k.gltf", "name": "Desk", "type": 1, "x": 0, "z": -160, "rot": 0, "widthCm": 120, "depthCm": 120, "heightCm": 76 },
-    { "modelUrl": "/models/imported-products/chair-032/chair-032.glb", "name": "Desk Chair", "type": 1, "x": 0, "z": -85, "rot": 3.14159, "widthCm": 65, "depthCm": 70, "heightCm": 85 },
-    { "modelUrl": "/models/imported-products/detailed-cupboard-015/detailed-cupboard-015.glb", "name": "Bookcase L", "type": 1, "x": -190, "z": -70, "rot": 1.5708, "widthCm": 100, "depthCm": 45, "heightCm": 180 },
-    { "modelUrl": "/models/imported-products/detailed-cupboard-020/detailed-cupboard-020.glb", "name": "Bookcase R", "type": 1, "x": -190, "z": 40, "rot": 1.5708, "widthCm": 100, "depthCm": 45, "heightCm": 180 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Desk Chair", "type": 1, "x": 0, "z": -85, "rot": 3.14159, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Bookcase L", "type": 1, "x": -190, "z": -70, "rot": 1.5708, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Bookcase R", "type": 1, "x": -190, "z": 40, "rot": 1.5708, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
     { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Lounge Chair", "type": 1, "x": 170, "z": 120, "rot": -0.7, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
     { "modelUrl": "/models/imported-products/coffee-table-round-01/coffee_table_round_01_1k.gltf", "name": "Side Table", "type": 1, "x": 170, "z": 50, "rot": 0, "widthCm": 105, "depthCm": 105, "heightCm": 42 }
   ]

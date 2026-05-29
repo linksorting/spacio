@@ -11,12 +11,12 @@
   "floorTextureScale": 300,
   "floorTextureStretch": false,
   "items": [
-    { "modelUrl": "/models/imported-products/modern-dining-set/modern-dining-set.glb", "name": "Dining Set", "type": 1, "x": 0, "z": 0, "rot": 0, "widthCm": 160, "depthCm": 90, "heightCm": 75 },
+    { "modelUrl": "/models/imported-products/round-wooden-table-01/round_wooden_table_01_1k.gltf", "name": "Dining Table", "type": 1, "x": 0, "z": 0, "rot": 0, "widthCm": 120, "depthCm": 120, "heightCm": 76 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Dining Chair N", "type": 1, "x": 0, "z": 95, "rot": 3.14159, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Dining Chair S", "type": 1, "x": 0, "z": -95, "rot": 0, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
     { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Sideboard", "type": 1, "x": 0, "z": 220, "rot": 3.14159, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
-    { "modelUrl": "/models/imported-products/round-wooden-table-01/round_wooden_table_01_1k.gltf", "name": "Bar Table", "type": 1, "x": -230, "z": 180, "rot": 0, "widthCm": 120, "depthCm": 120, "heightCm": 76 },
-    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Bar Chair L", "type": 1, "x": -230, "z": 100, "rot": 0, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
-    { "modelUrl": "/models/imported-products/chair-032/chair-032.glb", "name": "Bar Chair R", "type": 1, "x": -230, "z": 15, "rot": 3.14159, "widthCm": 65, "depthCm": 70, "heightCm": 85 },
-    { "modelUrl": "/models/imported-products/realistic-sofa-005/realistic-sofa-005.glb", "name": "Waiting Sofa", "type": 1, "x": 180, "z": -190, "rot": -1.5708, "widthCm": 220, "depthCm": 92, "heightCm": 85 },
-    { "modelUrl": "/models/imported-products/coffee-table-round-01/coffee_table_round_01_1k.gltf", "name": "Accent Table", "type": 1, "x": 220, "z": -50, "rot": 0, "widthCm": 105, "depthCm": 105, "heightCm": 42 }
+    { "modelUrl": "/models/imported-products/sofa-01/Sofa_01_1k.gltf", "name": "Waiting Sofa", "type": 1, "x": 180, "z": -190, "rot": -1.5708, "widthCm": 220, "depthCm": 92, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/coffee-table-round-01/coffee_table_round_01_1k.gltf", "name": "Accent Table", "type": 1, "x": 220, "z": -50, "rot": 0, "widthCm": 105, "depthCm": 105, "heightCm": 42 },
+    { "modelUrl": "/models/imported-products/potted-plant/potted_plant_02_1k.gltf", "name": "Corner Plant", "type": 1, "x": -230, "z": 180, "rot": 0, "widthCm": 40, "depthCm": 40, "heightCm": 80 }
   ]
 }

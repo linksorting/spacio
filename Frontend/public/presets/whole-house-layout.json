@@ -1,0 +1,51 @@
+{
+  "name": "Whole House Layout",
+  "style": "Residential",
+  "roomHeight": 280,
+  "wallTexture": "/rooms/textures/wallmap.png",
+  "wallTextureStretch": true,
+  "wallTextureScale": 0,
+  "floorTexture": "/rooms/textures/light_fine_wood.jpg",
+  "floorTextureScale": 320,
+  "floorTextureStretch": false,
+  "layout": {
+    "corners": [
+      [-450, -325], [150, -325], [450, -325], [450, 175], [450, 325], [150, 325], [-150, 325], [-450, 325], [-450, 175], [-450, -75], [-150, -75], [-150, -325], [150, -75], [150, 175], [-150, 175]
+    ],
+    "walls": [
+      [0, 11], [11, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 0],
+      [11, 10], [10, 14], [14, 6], [1, 12], [12, 13], [13, 5],
+      [9, 10], [10, 12], [12, 3], [8, 14], [14, 13], [13, 3]
+    ]
+  },
+  "openings": [
+    { "wallIndex": 10, "type": "door", "offsetAlongWall": 0.5, "widthCm": 96, "heightCm": 214, "label": "Front door" },
+    { "wallIndex": 17, "type": "doorway", "offsetAlongWall": 0.5, "widthCm": 115, "heightCm": 225, "label": "Living hall opening" },
+    { "wallIndex": 18, "type": "doorway", "offsetAlongWall": 0.48, "widthCm": 110, "heightCm": 225, "label": "Kitchen hall opening" },
+    { "wallIndex": 20, "type": "door", "offsetAlongWall": 0.45, "widthCm": 86, "heightCm": 210, "label": "Bedroom door" },
+    { "wallIndex": 21, "type": "door", "offsetAlongWall": 0.45, "widthCm": 82, "heightCm": 210, "label": "Bathroom door" },
+    { "wallIndex": 0, "type": "window", "offsetAlongWall": 0.38, "widthCm": 140, "heightCm": 120, "elevationCm": 88, "label": "Bedroom window" },
+    { "wallIndex": 2, "type": "window", "offsetAlongWall": 0.55, "widthCm": 160, "heightCm": 120, "elevationCm": 88, "label": "Kitchen window" },
+    { "wallIndex": 8, "type": "window", "offsetAlongWall": 0.45, "widthCm": 170, "heightCm": 125, "elevationCm": 84, "label": "Living window" },
+    { "wallIndex": 4, "type": "window", "offsetAlongWall": 0.55, "widthCm": 90, "heightCm": 70, "elevationCm": 150, "label": "Bath window" }
+  ],
+  "ceilingFixtures": [
+    { "id": "living-fan", "type": "fan", "x": -300, "y": 266, "z": 60, "color": "#f4dfbf" },
+    { "id": "kitchen-spots-a", "type": "spot", "x": 300, "y": 270, "z": -185, "color": "#fff3dc" },
+    { "id": "kitchen-spots-b", "type": "spot", "x": 390, "y": 270, "z": -185, "color": "#fff3dc" },
+    { "id": "bedroom-pendant", "type": "pendant", "x": -290, "y": 266, "z": -210, "color": "#f6e4c8" },
+    { "id": "bath-spot", "type": "spot", "x": 295, "y": 270, "z": 245, "color": "#fff4de" }
+  ],
+  "items": [
+    { "modelUrl": "/models/imported-products/sofa-01/Sofa_01_1k.gltf", "name": "Living Sofa", "type": 1, "x": -315, "z": 70, "rot": 1.5708, "widthCm": 220, "depthCm": 92, "heightCm": 85 },
+    { "modelUrl": "/models/imported-products/coffee-table-round-01/coffee_table_round_01_1k.gltf", "name": "Living Coffee Table", "type": 1, "x": -235, "z": 70, "rot": 0, "widthCm": 105, "depthCm": 105, "heightCm": 42 },
+    { "modelUrl": "/models/imported-products/gothic-bed-01/GothicBed_01_1k.gltf", "name": "Bedroom Bed", "type": 1, "x": -300, "z": -215, "rot": 1.5708, "widthCm": 190, "depthCm": 220, "heightCm": 110 },
+    { "modelUrl": "/models/imported-products/obj-elegant-kitchen/Kitchen_2_obj.obj", "name": "Kitchen", "type": 1, "x": 310, "z": -185, "rot": 3.14159, "widthCm": 400, "depthCm": 400, "heightCm": 270 },
+    { "modelUrl": "/models/imported-products/round-wooden-table-01/round_wooden_table_01_1k.gltf", "name": "Dining Table", "type": 1, "x": 18, "z": 250, "rot": 0, "widthCm": 120, "depthCm": 120, "heightCm": 76 },
+    { "modelUrl": "/models/imported-products/modern-arm-chair-01/modern_arm_chair_01_1k.gltf", "name": "Dining Chair", "type": 1, "x": 92, "z": 250, "rot": -1.5708, "widthCm": 82, "depthCm": 88, "heightCm": 86 },
+    { "modelUrl": "/models/imported-products/obj-bathtub/Bathtub.obj", "name": "Bathroom Tub", "type": 1, "x": 300, "z": 250, "rot": 0, "widthCm": 170, "depthCm": 80, "heightCm": 58 },
+    { "modelUrl": "/models/imported-products/obj-modern-toilet/Modern_Toilet_Open_OBJ.obj", "name": "Bathroom Toilet", "type": 1, "x": 405, "z": 235, "rot": -1.5708, "widthCm": 45, "depthCm": 65, "heightCm": 80 },
+    { "modelUrl": "/models/imported-products/chinese-cabinet/chinese_cabinet_1k.gltf", "name": "Hall Storage", "type": 1, "x": -12, "z": 20, "rot": 3.14159, "widthCm": 115, "depthCm": 55, "heightCm": 190 },
+    { "modelUrl": "/models/imported-products/potted-plant/potted_plant_02_1k.gltf", "name": "Entry Plant", "type": 1, "x": -390, "z": -10, "rot": 0, "widthCm": 40, "depthCm": 40, "heightCm": 80 }
+  ]
+}
